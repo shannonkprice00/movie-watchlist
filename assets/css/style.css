@@ -1,0 +1,27 @@
+#Search  {
+    background-color: #F3DE8A;
+
+}
+
+#Search-Results {
+    background-color:  #F3DE8A
+}
+
+#List {
+    background-color: #8B9EB7;
+    height: auto;
+    width: 100%
+}
+
+#Card {
+    height: 40%;
+    width: 100%;
+}
+
+body{
+    background-color: #8B9EB7;
+}
+
+#card{
+    background-color: #313B72;
+}
