@@ -1,13 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Document</title>
-  </head>
-  <body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Movie Watch List</title>
+</head>
+<header>
+    <h1>Movie Watch-List</h1>
+</header>
+
+<body>
+    <div class="row">
+        <!-- This is our search box -->
+
+      <div id="Search" class="col s12 m4 l3">
+        <div class="row">
+            <div id="Card" class="col s12 m6">
+              <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">Movie Search</span>
+                  <p>Search by Title.</p>
+                </div>
+                <div class="card-action">
+                  
+                    <div class="row">
+                        <form class="col s12">
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <textarea id="textarea1" class="materialize-textarea"></textarea>
+                              <label for="textarea1">Title..</label>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      
+                      
+                      <!-- This is our submit button -->
+                  <button class="btn waves-effect waves-light" type="submit" name="action">SUMBIT
+                    <i class="material-icons right">Search</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- My Movie List  -->
+          <div id="List" class="container">
+            <h2>My Movie List</h2>
+            <hr> 
+            <ul id="sortable">
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+              </ul>
+         
+          </div>
+       
+        </div>
+
+
+      <div  id="Search-Results"  class="col s12 m8 l9"> 
+        <h2>Search Results go here, I exist</h2>
+   
+
+      </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+  } );
+  </script>
     <script src="./assets/js/script.js"></script>
-  </body>
+</body>
+
 </html>
