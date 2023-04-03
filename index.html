@@ -19,7 +19,6 @@
 <body>
     <div class="row">
         <!-- This is our search box -->
-
       <div id="Search" class="col s12 m4 l3">
         <div class="row">
             <div id="Card" class="col s12 m6">
@@ -29,7 +28,6 @@
                   <p>Search by Title.</p>
                 </div>
                 <div class="card-action">
-                  
                     <div class="row">
                         <form class="col s12">
                           <div class="row">
@@ -40,10 +38,8 @@
                           </div>
                         </form>
                       </div>
-                      
-                      
                       <!-- This is our submit button -->
-                  <button class="btn waves-effect waves-light" type="submit" name="action">SUMBIT
+                  <button id="movie-title-search-btn" class="btn waves-effect waves-light" type="submit" name="action">SUBMIT
                     <i class="material-icons right">Search</i>
                   </button>
                 </div>
@@ -52,7 +48,7 @@
           </div>
 
           <!-- My Movie List  -->
-          <div id="List" class="container">
+          <div id="saved-movie-list" class="container">
             <h2>My Movie List</h2>
             <hr> 
             <ul id="sortable">
@@ -70,8 +66,9 @@
         </div>
 
 
-      <div  id="Search-Results"  class="col s12 m8 l9"> 
-        <h2>Search Results go here, I exist</h2>
+      <div  id="search-results-div" class="col s12 m8 l9 "> 
+        <h3>Search Results</h3>
+          <ul id="search-results-list"></ul>
    
 
       </div>

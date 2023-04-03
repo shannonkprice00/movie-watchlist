@@ -1,3 +1,28 @@
+body{
+    background-color: #8B9EB7;
+    font-size: 18px;
+}
+
+.search-result-li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color:aliceblue;
+    font-size: 1.5rem;
+    background-color: #313B72;
+    border: 5px solid rgb(62, 63, 74);
+    border-radius: 10px;
+    width: 75vh;
+    height: 5vh;
+    padding: 3%;
+}
+
+.save-btn {
+    font-size: 1rem;
+    background-color: #F3DE8A;
+    border-radius: 5px;
+}
+
 #Search  {
     background-color: #F3DE8A;
 
@@ -18,10 +43,12 @@
     width: 100%;
 }
 
-body{
-    background-color: #8B9EB7;
-}
-
 #card{
     background-color: #313B72;
+}
+
+#movie-poster {
+    width:25%;
+    height: auto;
+
 }
