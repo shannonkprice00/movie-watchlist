@@ -11,7 +11,7 @@ var actorId = "500";
 var genreId = 28;
 var actorName = "Tom Cruise";
 var storedMovies = [];
-
+var posterPath = "/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg"
 
 // var OMBdRequestURL = "http://www.omdbapi.com/?apikey="+OMDbApiKey+"&t=inception";
 var TMBDReqGenreId = "https://api.themoviedb.org/3/genre/movie/list?api_key="+TMBDApiKey+"&language=en-US"
@@ -19,6 +19,7 @@ var TMBDReqMovieByGenre = "https://api.themoviedb.org/3/discover/movie?api_key="
 var TMBDReqYear = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year="+releaseYear;
 var TMBDReqActorId = "https://api.themoviedb.org/3/search/person?api_key="+TMBDApiKey+"&query="+actorName;
 var TMBDReqMovieByActor = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=" + actorId;
+var imgSrcUrl = "https://image.tmdb.org/t/p/w500";
 
 // request genre/ID object pairs (TMBD)
 fetch(TMBDReqGenreId)
@@ -61,8 +62,8 @@ fetch(TMBDReqActorId)
   return response.json();
 })
 .then (function (data) {
-  // console.log("Actor ID: ");
-  // console.log(data.results[0].name + " ID: " + data.results[0].id);
+  console.log("Actor ID: ");
+  console.log(data.results[0].name + " ID: " + data.results[0].id);
 })
 
 // request popular movies by Actor (TMBD)
@@ -79,20 +80,7 @@ function searchMovieByTitle () {
   searchResultsList.innerHTML = "";
   var movieTitle = searchEl.value;
   var TMBDReqMovieId = "https://api.themoviedb.org/3/search/movie?api_key="+TMBDApiKey+"&query="+movieTitle;
-  var wikiRequest = "https://en.wikipedia.org/api/rest_v1/page/summary/"+movieTitle;
 
-  fetch(wikiRequest)
-  .then (function (response) {
-    return response.json();
-  })
-  .then (function (data) {
-    var movieImageSrc = data.originalimage.source;
-    var movieImage = document.createElement("img");
-    movieImage.setAttribute("src", movieImageSrc);
-    movieImage.setAttribute("id", "movie-poster");
-    searchResultsList.appendChild(movieImage);
-  })
-console.log(movieTitle);
   // request movie ID (TMBD)
   fetch(TMBDReqMovieId)
   .then(function (response) {
@@ -111,6 +99,9 @@ console.log(movieTitle);
       })
       .then (function (data) {
         console.log(data);
+        var posterPath = data.poster_path
+        var movieImageSrc = imgSrcUrl + posterPath
+        var movieImage = document.createElement("img");
         var movieSearch = document.createElement("li");
         var overView = document.createElement("p");
         var saveBtn = document.createElement("button");
@@ -118,6 +109,8 @@ console.log(movieTitle);
         var genreLi = document.createElement("li");
         var releaseDateLi = document.createElement("li");
         var tagLineLi = document.createElement("li");
+        movieImage.setAttribute("src", movieImageSrc);
+        movieImage.setAttribute("id", "movie-poster");
         factsList.setAttribute("id", "facts-list");
         genreLi.setAttribute("class", "facts-list-item");
         releaseDateLi.setAttribute("class", "facts-list-item");
@@ -137,6 +130,7 @@ console.log(movieTitle);
         factsList.appendChild(genreLi);
         factsList.appendChild(releaseDateLi);
         factsList.appendChild(tagLineLi);
+        searchResultsList.appendChild(movieImage);
         searchResultsList.insertBefore(factsList, overView.nextSibling);
         
         saveBtn.addEventListener("click", storeMovies);
