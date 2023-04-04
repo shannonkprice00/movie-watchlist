@@ -80,6 +80,25 @@ function searchMovieByTitle () {
   searchResultsList.innerHTML = "";
   var movieTitle = searchEl.value;
   var TMBDReqMovieId = "https://api.themoviedb.org/3/search/movie?api_key="+TMBDApiKey+"&query="+movieTitle;
+  var wikiRequest = "https://en.wikipedia.org/api/rest_v1/page/summary/"+movieTitle;
+
+  fetch(wikiRequest)
+  .then(function(response){
+    return response.json();
+  })
+  .then(function(data){
+    //console.log(data)
+    //console.log(data.content_urls.desktop.page)
+    var wikipedia = data.content_urls.desktop.page
+    var wikipediaLi = document.createElement("li");
+    var wikipediaLink = document.createElement("a");
+    wikipediaLink.setAttribute("href", wikipedia);
+    wikipediaLink.setAttribute("target", "_blank");
+    wikipediaLink.textContent=wikipedia;
+    wikipediaLi.textContent = "Click below for more information ";
+    wikipediaLi.appendChild(wikipediaLink);
+    searchResultsList.appendChild(wikipediaLi); 
+  }) 
 
   // request movie ID (TMBD)
   fetch(TMBDReqMovieId)
