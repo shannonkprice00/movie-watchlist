@@ -130,7 +130,7 @@ console.log(movieTitle);
         saveBtn.innerHTML = "Save to Watchlist";
         genreLi.textContent = "Genre: " + data.genres[0].name;
         releaseDateLi.textContent = "Release Date: " + data.release_date;
-        tagLineLi.textContent = "Tageline: " + data.tagline;
+        tagLineLi.textContent = "Tagline: " + data.tagline;
         movieSearch.appendChild(saveBtn);
         searchResultsList.append(movieSearch);
         searchResultsList.insertBefore(overView, movieSearch.nextSibling);
