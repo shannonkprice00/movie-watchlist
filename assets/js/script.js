@@ -7,9 +7,9 @@ var savedMovieList = document.getElementById("sortable");
 
 var TMBDApiKey = "344e887b3fa3f0306933a1df072217b5";
 var releaseYear = "2005";
-var actorId = "500";
+// var actorId = "500";
 var genreId = 28;
-var actorName = "Tom Cruise";
+// var actorName = "Tom Cruise";
 var storedMovies = [];
 
 
@@ -17,8 +17,8 @@ var storedMovies = [];
 var TMBDReqGenreId = "https://api.themoviedb.org/3/genre/movie/list?api_key="+TMBDApiKey+"&language=en-US"
 var TMBDReqMovieByGenre = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres="+genreId
 var TMBDReqYear = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year="+releaseYear;
-var TMBDReqActorId = "https://api.themoviedb.org/3/search/person?api_key="+TMBDApiKey+"&query="+actorName;
-var TMBDReqMovieByActor = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=" + actorId;
+// var TMBDReqActorId = "https://api.themoviedb.org/3/search/person?api_key="+TMBDApiKey+"&query="+actorName;
+// var TMBDReqMovieByActor = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=" + actorId;
 
 // request genre/ID object pairs (TMBD)
 fetch(TMBDReqGenreId)
@@ -55,25 +55,81 @@ fetch(TMBDReqMovieByGenre)
   // console.log(data);
 })
 
+
+function searchMovieByActor () {
+var actorName = document.getElementById("textarea1").value;
+
+//use the actor name to fetch the actor ID from TMBD
+var TMBDReqActorId = "https://api.themoviedb.org/3/search/person?api_key="+TMBDApiKey+"&query="+actorName;
+
 // request Actor Id (TMBD)
 fetch(TMBDReqActorId)
 .then(function (response) {
   return response.json();
 })
 .then (function (data) {
-  // console.log("Actor ID: ");
-  // console.log(data.results[0].name + " ID: " + data.results[0].id);
-})
+  var actorId = data.results[0].id;
 
-// request popular movies by Actor (TMBD)
-fetch(TMBDReqMovieByActor)
-.then(function (response) {
-  return response.json();
+  console.log(actorId);
+
+  if (typeof myVariable !== 'undefined') {
+    // myVariable is defined, you can access its properties
+    console.log(myVariable.id);
+  }
+
+  console.log("Actor ID: ");
+  console.log(data.results[0].name + " ID: " + data.results[0].id);
+
+  // use the actor id to fetch the top 20 movies by the actor from TMBD API
+  // var TMBDReqMovieByActor = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=" + actorId + "&vote_count.gte=5000";
+  var TMBDReqMovieByActor = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=" + actorId;
+  fetch(TMBDReqMovieByActor)
+  .then(function (response) {
+    return response.json();
+  })
+  .then (function (data) {
+    // console.log("Movies by Actor: ");
+    console.log(data);
+
+    // loop through the top 20 movies and create list items for each
+    for (var i = 0; i < data.results.length; i++) {
+      var movieSearch = document.createElement("li");
+      var saveBtn = document.createElement("button");
+      var movieTitle = data.results[i].title;
+      var movieId = data.results[i].id;
+      movieSearch.setAttribute("class", "search-results-li");
+      saveBtn.setAttribute("class", "save-btn");
+      movieSearch.textContent = movieTitle.toUpperCase();
+      saveBtn.innerHTML = "Save to Watchlist";
+      movieSearch.appendChild(saveBtn);
+      searchResultsList.appendChild(movieSearch);
+
+      //add a click event listener to the save button to store the movie title
+      saveBtn.addEventListener("click", function(){
+        var storedMoviesUC = movieTitle.toUpperCase();
+        storedMovies.push(storedMoviesUC);
+        localStorage.setItem("Movies-Saved", JSON.stringify(storedMovies));
+        renderSavedMovies();
+      });
+
+      var moreInfoBtn = document.createElement("button");
+      moreInfoBtn.setAttribute("class", "more-info-btn");
+      moreInfoBtn.innerHTML = "More Info";
+      movieSearch.appendChild(moreInfoBtn);
+      
+      moreInfoBtn.addEventListener("click", function() {
+        var movieTitle = movieSearch.textContent.toLowerCase();
+        searchEl.value = movieTitle;
+        searchMovieByTitle(movieTitle);
+        console.log(movieTitle);
+        console.log(movieId);
+        
+      });
+
+    }
+  })
 })
-.then (function (data) {
-  // console.log("Movies by Actor: ");
-  // console.log(data);
-})
+};
 
 function searchMovieByTitle () {
   searchResultsList.innerHTML = "";
@@ -92,7 +148,7 @@ function searchMovieByTitle () {
     movieImage.setAttribute("id", "movie-poster");
     searchResultsList.appendChild(movieImage);
   })
-console.log(movieTitle);
+  console.log(movieTitle);
   // request movie ID (TMBD)
   fetch(TMBDReqMovieId)
   .then(function (response) {
@@ -103,6 +159,9 @@ console.log(movieTitle);
     // console.log(movieTitle + " ID: ");
     // console.log(data.results[0].id);
     var movieId = data.results[0].id
+
+    console.log(movieId);
+
     var TMBDReqMovieByTitle = "https://api.themoviedb.org/3/movie/"+movieId+"?api_key="+TMBDApiKey;
     // request movie details by title (TMBD)
     fetch(TMBDReqMovieByTitle)
@@ -186,7 +245,8 @@ function init () {
 
 init ();
 
-searchBtn.addEventListener("click", searchMovieByTitle);
+// searchBtn.addEventListener("click", searchMovieByTitle);
+searchBtn.addEventListener("click", searchMovieByActor);
 
 
 
