@@ -11,14 +11,20 @@ var releaseYear = "2005";
 var genreId = 28;
 // var actorName = "Tom Cruise";
 var storedMovies = [];
-
+var posterPath = "/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg"
 
 // var OMBdRequestURL = "http://www.omdbapi.com/?apikey="+OMDbApiKey+"&t=inception";
 var TMBDReqGenreId = "https://api.themoviedb.org/3/genre/movie/list?api_key="+TMBDApiKey+"&language=en-US"
 var TMBDReqMovieByGenre = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres="+genreId
 var TMBDReqYear = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year="+releaseYear;
+
 // var TMBDReqActorId = "https://api.themoviedb.org/3/search/person?api_key="+TMBDApiKey+"&query="+actorName;
 // var TMBDReqMovieByActor = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=" + actorId;
+
+var TMBDReqActorId = "https://api.themoviedb.org/3/search/person?api_key="+TMBDApiKey+"&query="+actorName;
+var TMBDReqMovieByActor = "https://api.themoviedb.org/3/discover/movie?api_key="+TMBDApiKey+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_cast=" + actorId;
+var imgSrcUrl = "https://image.tmdb.org/t/p/w500";
+
 
 // request genre/ID object pairs (TMBD)
 fetch(TMBDReqGenreId)
@@ -69,6 +75,10 @@ fetch(TMBDReqActorId)
 })
 .then (function (data) {
   var actorId = data.results[0].id;
+  console.log("Actor ID: ");
+  console.log(data.results[0].name + " ID: " + data.results[0].id);
+})
+
 
   console.log(actorId);
 
@@ -138,17 +148,29 @@ function searchMovieByTitle () {
   var wikiRequest = "https://en.wikipedia.org/api/rest_v1/page/summary/"+movieTitle;
 
   fetch(wikiRequest)
-  .then (function (response) {
+  .then(function(response){
     return response.json();
   })
+
   .then (function (data) {
     var movieImageSrc = data.originalimage.source;
     var movieImage = document.createElement("img");
     movieImage.setAttribute("src", movieImageSrc);
     movieImage.setAttribute("id", "movie-poster");
     searchResultsList.appendChild(movieImage);
-  })
-  console.log(movieTitle);
+    //console.log(data)
+    //console.log(data.content_urls.desktop.page)
+    var wikipedia = data.content_urls.desktop.page
+    var wikipediaLi = document.createElement("li");
+    var wikipediaLink = document.createElement("a");
+    wikipediaLink.setAttribute("href", wikipedia);
+    wikipediaLink.setAttribute("target", "_blank");
+    wikipediaLink.textContent=wikipedia;
+    wikipediaLi.textContent = "Click below for more information ";
+    wikipediaLi.appendChild(wikipediaLink);
+    searchResultsList.appendChild(wikipediaLi); 
+  }) 
+
   // request movie ID (TMBD)
   fetch(TMBDReqMovieId)
   .then(function (response) {
@@ -170,6 +192,9 @@ function searchMovieByTitle () {
       })
       .then (function (data) {
         console.log(data);
+        var posterPath = data.poster_path
+        var movieImageSrc = imgSrcUrl + posterPath
+        var movieImage = document.createElement("img");
         var movieSearch = document.createElement("li");
         var overView = document.createElement("p");
         var saveBtn = document.createElement("button");
@@ -177,6 +202,8 @@ function searchMovieByTitle () {
         var genreLi = document.createElement("li");
         var releaseDateLi = document.createElement("li");
         var tagLineLi = document.createElement("li");
+        movieImage.setAttribute("src", movieImageSrc);
+        movieImage.setAttribute("id", "movie-poster");
         factsList.setAttribute("id", "facts-list");
         genreLi.setAttribute("class", "facts-list-item");
         releaseDateLi.setAttribute("class", "facts-list-item");
@@ -189,13 +216,14 @@ function searchMovieByTitle () {
         saveBtn.innerHTML = "Save to Watchlist";
         genreLi.textContent = "Genre: " + data.genres[0].name;
         releaseDateLi.textContent = "Release Date: " + data.release_date;
-        tagLineLi.textContent = "Tageline: " + data.tagline;
+        tagLineLi.textContent = "Tagline: " + data.tagline;
         movieSearch.appendChild(saveBtn);
         searchResultsList.append(movieSearch);
         searchResultsList.insertBefore(overView, movieSearch.nextSibling);
         factsList.appendChild(genreLi);
         factsList.appendChild(releaseDateLi);
         factsList.appendChild(tagLineLi);
+        searchResultsList.appendChild(movieImage);
         searchResultsList.insertBefore(factsList, overView.nextSibling);
         
         saveBtn.addEventListener("click", storeMovies);
