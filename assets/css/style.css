@@ -13,7 +13,7 @@ body{
     border: 5px solid black;
     border-radius: 10px;
     width: 75vh;
-    height: 5vh;
+    height: fit-content;
     padding: 3%;
 }
 
@@ -66,6 +66,7 @@ body{
 #movie-poster {
     width:25%;
     height: auto;
+
 
 }
 
@@ -140,5 +141,6 @@ body{
 .materialize-textarea{
     color:white
 }
+
 
 
