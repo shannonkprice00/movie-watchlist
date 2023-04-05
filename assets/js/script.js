@@ -287,7 +287,7 @@ function searchMovieByTitle(prevMovieName) {
     //   wikipediaLi.appendChild(wikipediaLink);
     //   wikiDiv.appendChild(wikipediaLi);
 //     });
-// }
+}
 function storeMovies() {
   var movieTitleEl = document.getElementById("movie-title");
   var movieTitle = movieTitleEl.textContent.replace("Save to Watchlist", "");
