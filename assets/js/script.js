@@ -364,6 +364,7 @@ function init() {
   renderSavedMovies();
 }
 
+
 // need to debug this code to only add event listener to searchBtn IF something is searched for...
 // var searchParameterBtns = document.querySelectorAll(".search-parameter-btn")
 // for (var i = 0; i < searchParameterBtns.length; i++) {
@@ -385,6 +386,70 @@ function init() {
 //     }
 //   });
 // }
+
+init();
+
+
+// searchBtn.addEventListener("click", searchMovieByTitle);
+// searchBtn.addEventListener("click", searchMovieByActor);
+searchBtn.addEventListener("click", searchMovieByGenre);
+// searchBtn.addEventListener("click", searchMovieByYear);
+
+
+const titleSearchBtn = document.getElementById("title-search-btn-small");
+const actorSearchBtn = document.getElementById("actor-search-btn-small");
+const genreSearchBtn = document.getElementById("genre-search-btn-small");
+const yearSearchBtn = document.getElementById("year-search-btn-small");
+
+
+const textareaContainer = document.getElementById("textarea-container");
+const textAreaLabel = document.getElementById('textLabel');
+
+titleSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+    actorSearchBtn.style.backgroundColor = '';
+    genreSearchBtn.style.backgroundColor = '';
+    yearSearchBtn.style.backgroundColor = '';
+    titleSearchBtn.style.backgroundColor = 'red';
+    textAreaLabel.textContent = 'Searching by Title!';
+    textAreaLabel.style.color = 'red';
+    searchBtn.addEventListener("click", searchMovieByTitle);
+});
+actorSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+    titleSearchBtn.style.backgroundColor = '';
+    genreSearchBtn.style.backgroundColor = '';
+    yearSearchBtn.style.backgroundColor = '';
+    actorSearchBtn.style.backgroundColor = 'blue';
+    textAreaLabel.textContent = 'Searching by Actor!';
+    textAreaLabel.style.color = 'blue';
+    searchBtn.addEventListener("click", searchMovieByActor);
+});
+genreSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+    titleSearchBtn.style.backgroundColor = '';
+    actorSearchBtn.style.backgroundColor = '';
+    yearSearchBtn.style.backgroundColor = '';
+    genreSearchBtn.style.backgroundColor = 'orange';
+    textAreaLabel.textContent = 'Searching by Genre!';
+    textAreaLabel.style.color = 'orange';
+    searchBtn.addEventListener("click", searchMovieByGenre);
+});
+yearSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+    titleSearchBtn.style.backgroundColor = '';
+    actorSearchBtn.style.backgroundColor = '';
+    genreSearchBtn.style.backgroundColor = '';
+    yearSearchBtn.style.backgroundColor = 'purple';
+    textAreaLabel.textContent = 'Searching by Year!';
+    textAreaLabel.style.color = 'purple';
+    searchBtn.addEventListener("click", searchMovieByYear);
+});
+
 
 
 init();
