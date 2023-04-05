@@ -7,6 +7,14 @@ var savedMovieList = document.getElementById("sortable");
 var searchResultsH3 = document.getElementById("search-results-h3");
 var imageDiv = document.getElementById("image-div");
 var wikiDiv = document.getElementById("wikipedia");
+var searchLabel = document.getElementById("textarea-label");
+
+var titleSearchBtn = document.getElementById("title-search-btn-small");
+var actorSearchBtn = document.getElementById("actor-search-btn-small");
+var genreSearchBtn = document.getElementById("genre-search-btn-small");
+var yearSearchBtn = document.getElementById("year-search-btn-small");
+
+var textareaContainer = document.getElementById("textarea-container");
 
 var TMBDApiKey = "344e887b3fa3f0306933a1df072217b5";
 var storedMovies = [];
@@ -72,6 +80,7 @@ function searchMovieByGenre() {
               searchMovieByTitle(movieName);
             });
           }
+          searchEl.textContent = "";
         });
     });
 }
@@ -116,6 +125,7 @@ function searchMovieByYear() {
           searchMovieByTitle(movieName);
         });
       }
+      searchEl.textContent = "";
     });
 }
 function searchMovieByActor() {
@@ -123,6 +133,7 @@ function searchMovieByActor() {
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
   var actorName = document.getElementById("textarea1").value;
+  searchEl.textContent = "";
   //use the actor name to fetch the actor ID from TMBD
   var TMBDReqActorId =
     "https://api.themoviedb.org/3/search/person?api_key=" +
@@ -139,13 +150,13 @@ function searchMovieByActor() {
       var actorId = data.results[0].id;
       var profilePath = data.results[0].profile_path;
       if (profilePath) {
-        var profileUrl = 'https://image.tmdb.org/t/p/w500' + profilePath;
+        var profileUrl = "https://image.tmdb.org/t/p/w500" + profilePath;
       }
       var profileImg = document.createElement("img");
       profileImg.setAttribute("src", profileUrl);
       profileImg.setAttribute("width", "150");
       imageDiv.appendChild(profileImg);
-      
+
       // use the actor id to fetch the top 20 movies by the actor from TMBD API
       var TMBDReqMovieByActor =
         "https://api.themoviedb.org/3/discover/movie?api_key=" +
@@ -182,29 +193,25 @@ function searchMovieByActor() {
           }
         });
     });
-
-  // if (typeof myVariable !== "undefined") {
-  //   // myVariable is defined, you can access its properties
-  //   console.log(myVariable.id);
-  // }
 }
+
+
 function searchMovieByTitle(prevMovieName) {
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
   wikiDiv.innerHTML = "";
+  if (prevMovieName instanceof PointerEvent) {
+    var movieTitle = searchEl.value
+  } else {
+    var movieTitle = prevMovieName;
+  }
   console.log(prevMovieName);
-  // if (prevMovieName !== PointerEvent || null) {
-  //   var movieTitle = prevMovieName
-  // } else {
-  //   var movieTitle = searchEl.value;
-  // }
-  var movieTitle = prevMovieName || searchEl.value;
-  // var movieTitle = searchEl.value;
   console.log(movieTitle);
+
+  
   var wikiRequest =
-    "https://en.wikipedia.org/api/rest_v1/page/summary/" +
-    movieTitle.toLowerCase();
+    "https://en.wikipedia.org/api/rest_v1/page/summary/" + movieTitle.toLowerCase();
   // get wikipedia URL for more info & append to page
   fetch(wikiRequest)
     .then(function (response) {
@@ -265,6 +272,7 @@ function searchMovieByTitle(prevMovieName) {
           tagLineLi.setAttribute("class", "facts-list-item");
           overView.setAttribute("class", "search-result-p");
           movieSearch.setAttribute("class", "search-result-li");
+          movieSearch.setAttribute("id", "movie-title");
           saveBtn.setAttribute("class", "save-btn");
           movieSearch.textContent = movieTitle.toUpperCase();
           overView.textContent = data.overview;
@@ -282,20 +290,23 @@ function searchMovieByTitle(prevMovieName) {
           searchResultsList.insertBefore(factsList, overView.nextSibling);
 
           saveBtn.addEventListener("click", storeMovies);
+          searchEl.textContent = "";
         });
     });
 }
 function storeMovies() {
-  var movieTitle = searchEl.value;
+  var movieTitleEl = document.getElementById("movie-title");
+  var movieTitle = movieTitleEl.textContent.replace("Save to Watchlist", "");
+  console.log(movieTitle);
   if (movieTitle === "") {
     return;
   }
-  var savedMovies = storedMovies.map(x => x.toUpperCase())
-    if (!savedMovies.includes(movieTitle.toUpperCase())) {
-  var storedMoviesUC = movieTitle.toUpperCase();
-  storedMovies.push(storedMoviesUC);
-  localStorage.setItem("Movies-Saved", JSON.stringify(storedMovies));
-  renderSavedMovies();
+  var savedMovies = storedMovies.map((x) => x.toUpperCase());
+  if (!savedMovies.includes(movieTitle.toUpperCase())) {
+    var storedMoviesUC = movieTitle.toUpperCase();
+    storedMovies.push(storedMoviesUC);
+    localStorage.setItem("Movies-Saved", JSON.stringify(storedMovies));
+    renderSavedMovies();
   }
   movieTitle.innerHTML = "";
 }
@@ -312,17 +323,35 @@ function renderSavedMovies() {
     var Btn = document.createElement("a");
     li.setAttribute("class", "ui-state-default");
     Btn.setAttribute("class", "waves-effect waves-light btn");
+    Btn.setAttribute("id", "delete-btn");
     li.textContent = storedMovie;
     Btn.textContent = "Delete";
     li.appendChild(Btn);
     savedMovieList.appendChild(li);
 
     li.addEventListener("click", function (event) {
-      var movieName = event.target.textContent;
-      console.log(movieName);
-      movieName = movieName.replace("Delete", "");
-      console.log(movieName);
-      searchMovieByTitle(movieName);
+      if (event.target !== document.querySelector("#delete-btn")) {
+        console.log(event.target);
+        var movieName = event.target.textContent;
+        console.log(movieName);
+        movieName = movieName.replace("Delete", "");
+        console.log(movieName);
+        searchMovieByTitle(movieName);
+      } else if (event.target === document.querySelector("#delete-btn")) {
+        var target = event.target;
+        var movieName = target.parentNode.textContent;
+        console.log(movieName);
+        movieName = movieName.replace("Delete", "");
+        console.log(movieName);
+        var storedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
+        var itemIndex = storedMovies.indexOf(movieName);
+        console.log(movieName);
+        if (itemIndex > -1) {
+          storedMovies.splice(itemIndex, 1);
+          localStorage.setItem("Movies-Saved", JSON.stringify(storedMovies));
+        }
+        target.parentNode.remove();
+      }
     });
   }
 }
@@ -332,9 +361,31 @@ function init() {
   if (savedMovies !== null) {
     storedMovies = savedMovies;
   }
-
   renderSavedMovies();
 }
+
+
+// need to debug this code to only add event listener to searchBtn IF something is searched for...
+// var searchParameterBtns = document.querySelectorAll(".search-parameter-btn")
+// for (var i = 0; i < searchParameterBtns.length; i++) {
+//   searchParameterBtns[i].addEventListener("click", function(event) {
+//     event.preventDefault();
+//     textareaContainer.style.display = "block";
+//     if (event.target === document.getElementById("title-search-btn-small")) {
+//       searchLabel.textContent = "Search by movie title...";
+//       searchBtn.addEventListener("click", searchMovieByTitle);
+//     } else if (event.target === document.getElementById("actor-search-btn-small")) {
+//       searchLabel.textContent = "Search by featured actor...";
+//       searchBtn.addEventListener("click", searchMovieByActor);
+//     } else if (event.target === document.getElementById("genre-search-btn-small")) {
+//       searchLabel.textContent = "Search by genre...";
+//       searchBtn.addEventListener("click", searchMovieByGenre);
+//     } else if (event.target === document.getElementById("year-search-btn-small")) {
+//       searchLabel.textContent = "Search by release year...";
+//       searchBtn.addEventListener("click", searchMovieByYear);
+//     }
+//   });
+// }
 
 init();
 
@@ -400,3 +451,5 @@ yearSearchBtn.addEventListener("click", function(event) {
 });
 
 
+
+init();
