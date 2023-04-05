@@ -308,8 +308,12 @@ function renderSavedMovies() {
   for (var i = 0; i < storedMovies.length; i++) {
     var storedMovie = storedMovies[i];
     var li = document.createElement("li");
+    var Btn = document.createElement("a");
     li.setAttribute("class", "ui-state-default");
+    Btn.setAttribute("class", "waves-effect waves-light btn");
     li.textContent = storedMovie;
+    Btn.textContent = "Delete";
+    li.appendChild(Btn);
     savedMovieList.appendChild(li);
 
     li.addEventListener("click", function (event) {
