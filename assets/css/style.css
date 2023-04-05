@@ -1,146 +1,139 @@
-body{
-    background-color: #8B9EB7;
-    font-size: 18px;
+body {
+  background-color: #8b9eb7;
+  font-size: 18px;
 }
 
 .search-result-li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color:aliceblue;
-    font-size: 1.5rem;
-    background-color: #313B72;
-    border: 5px solid black;
-    border-radius: 10px;
-    width: 75vh;
-    height: fit-content;
-    padding: 3%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: aliceblue;
+  font-size: 1.5rem;
+  background-color: #313b72;
+  border: 5px solid black;
+  border-radius: 10px;
+  width: 75vh;
+  height: fit-content;
+  padding: 3%;
 }
 
 .save-btn {
-    font-size: 1rem;
-    background-color: #F3DE8A;
-    border-radius: 5px;
-}
-
-#Search  {
-    background-color: #6b9d8a;
-
-}
-
-#Search-Results {
-    background-color:  #F3DE8A
+  font-size: 1rem;
+  background-color: #f3de8a;
+  border-radius: 5px;
 }
 
 .searchBtnContainer {
-    display: flex;
-    justify-content:space-evenly;
-    margin-bottom:5%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 5%;
 }
 
 .search-btn-small {
-    padding: 0.3rem 0.5rem;
-    font-size: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.5rem;
+}
+
+.card-title {
+  font-family: Montserrat;
+  color: #8b9eb7;
+  font-weight: 200%;
+}
+
+.ui-state-default {
+  border: double;
+}
+
+.card-content-white-text {
+  background-color: #000308;
+}
+
+.card-blue-grey-darken-1 {
+  background-color: #01060b;
+}
+
+.materialize-textarea {
+    color: white;
   }
 
- #textarea-container {
-    display: none;
- }
+#textarea-container {
+  display: none;
+}
 
 #List {
-    background-color: #8B9EB7;
-    height: auto;
-    width: 100%
+  background-color: #8b9eb7;
+  height: auto;
+  width: 100%;
 }
 
 #Card {
-    height: 40%;
-    width: 100%;
+  height: 40%;
+  width: 100%;
 }
 
-#card{
-    background-color: #313B72;
-    
+#card {
+  background-color: #313b72;
 }
 
 #movie-poster {
-    width:25%;
-    height: auto;
-
-
+  width: 25%;
+  height: auto;
 }
 
+#Search {
+  background-color: #6b9d8a;
+}
 
-#movie-watchlist{
-    padding: 50px;
+#Search-Results {
+  background-color: #f3de8a;
+}
+
+#movie-watchlist {
+  padding: 50px;
   text-align: center;
   background: black;
-  color: #8B9EB7;
+  color: #8b9eb7;
   font-size: 50px;
   font-family: Montserrat;
   margin-top: 0%;
 }
 
-.card-title{
-    font-family: Montserrat;
-    color: #8B9EB7;
-    font-weight: 200%;
-    
+#searchby {
+  font-family: Montserrat;
+  color: #8b9eb7;
+  font-weight: 200%;
 }
 
-#searchby{
-    font-family: Montserrat;
-    color: #8B9EB7;
-    font-weight: 200%
+#movielist {
+  font-family: Montserrat;
+  color: rgb(11, 10, 10);
+  font-weight: 100%;
+  font-size: 2.4rem;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: double;
+  border-color: black;
 }
 
-#movielist{
-    font-family: Montserrat;
-    color:rgb(11, 10, 10);
-    font-weight: 100%;
-    font-size: 2.9rem;
-    text-align: center;
-    vertical-align: middle;
-    border-bottom: double;
-    border-color: black;
-}
-
-#search-results-h3{
-    border-bottom: double;
-    border-color: black;
-    font-family: Montserrat;
-    font-weight: 100;
-    text-align: center;
-    font-size: 3rem;
-    padding-bottom: 3%;
+#search-results-h3 {
+  border-bottom: double;
+  border-color: black;
+  font-family: Montserrat;
+  font-weight: 100;
+  text-align: center;
+  font-size: 3rem;
+  padding-bottom: 3%;
 }
 
 #sortable {
-    font-family: Montserrat;
-    font-size: 1.5rem;
-    border: double;
+  font-family: Montserrat;
+  font-size: 1.5rem;
+  border: double;
 }
 
-.ui-state-default{
-    border: double;
+#movie-title-search-btn {
+  background-color: #8b9eb7;
+  color: #01060b;
 }
-
-.card-content-white-text{
-    background-color: #000308;
-}
-
-.card-blue-grey-darken-1{
-    background-color: #01060b;
-}
-
-#movie-title-search-btn{
-    background-color: #8B9EB7;
-    color: #01060b;
-}
-
-.materialize-textarea{
-    color:white
-}
-
 
 

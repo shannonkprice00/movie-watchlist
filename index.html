@@ -37,14 +37,14 @@
                           <div class="row">
                             <div class="input-field col s12">
                               <div class="searchBtnContainer">
-                              <button id="title-search-btn-small" class="btn">Title</button>
-                              <button id="actor-search-btn-small" class="btn">Actor</button>
-                              <button id="genre-search-btn-small" class="btn">Genre</button>
-                              <button id="year-search-btn-small" class="btn">Year</button>
+                              <button id="title-search-btn-small" class="btn search-parameter-btn">Title</button>
+                              <button id="actor-search-btn-small" class="btn search-parameter-btn">Actor</button>
+                              <button id="genre-search-btn-small" class="btn search-parameter-btn">Genre</button>
+                              <button id="year-search-btn-small" class="btn search-parameter-btn">Year</button>
                             </div>
                             <div id="textarea-container">
+                              <label id="textLabel" for="textarea1"></label>
                               <textarea id="textarea1" class="materialize-textarea"></textarea>
-                              <label for="textarea1">Title, Actor, Genre, or Year..</label>
                             </div>
                             </div>
                           </div>
@@ -52,7 +52,7 @@
                       </div>
                       <!-- This is our submit button -->
                   <button id="movie-title-search-btn" class="btn waves-effect waves-light" type="submit" name="action">SUBMIT
-                    <i class="material-icons right">Search</i>
+                    <i id="search-icon" class="material-icons right">Search</i>
                   </button>
                 </div>
               </div>
@@ -62,19 +62,9 @@
           <!-- My Movie List  -->
           <div id="saved-movie-list" class="container">
             <h2 id="movielist">My Movie List</h2>
-            <hr> 
             <ul id="sortable">
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
               </ul>
-         
           </div>
-       
         </div>
 
 
