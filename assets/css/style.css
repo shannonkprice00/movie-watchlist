@@ -32,6 +32,21 @@ body{
     background-color:  #F3DE8A
 }
 
+.searchBtnContainer {
+    display: flex;
+    justify-content:space-evenly;
+    margin-bottom:5%;
+}
+
+.search-btn-small {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.5rem;
+  }
+
+ #textarea-container {
+    display: none;
+ }
+
 #List {
     background-color: #8B9EB7;
     height: auto;
@@ -45,6 +60,7 @@ body{
 
 #card{
     background-color: #313B72;
+    
 }
 
 #movie-poster {
@@ -52,6 +68,7 @@ body{
     height: auto;
 
 }
+
 
 #movie-watchlist{
     padding: 50px;
@@ -123,4 +140,5 @@ body{
 .materialize-textarea{
     color:white
 }
+
 

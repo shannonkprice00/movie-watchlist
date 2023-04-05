@@ -264,5 +264,29 @@ function init() {
 
 init();
 
-searchBtn.addEventListener("click", searchMovieByTitle);
-// searchBtn.addEventListener("click", searchMovieByActor);
+searchBtn.addEventListener("click", searchMovieByActor);
+
+const titleSearchBtn = document.getElementById("title-search-btn-small");
+const actorSearchBtn = document.getElementById("actor-search-btn-small");
+const genreSearchBtn = document.getElementById("genre-search-btn-small");
+const yearSearchBtn = document.getElementById("year-search-btn-small");
+
+const textareaContainer = document.getElementById("textarea-container");
+
+titleSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+});
+actorSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+});
+genreSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+});
+yearSearchBtn.addEventListener("click", function(event) {
+     event.preventDefault()
+    textareaContainer.style.display = "block";
+});
+
