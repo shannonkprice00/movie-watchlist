@@ -268,15 +268,15 @@ function searchMovieByTitle(prevMovieName) {
           searchEl.textContent = "";
         });
     });
-  var wikiRequest = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&origin=*&titles=Charlie%27s_Angels:_Full_Throttle";
-  // get wikipedia URL for more info & append to page
-  fetch(wikiRequest)
-    .then(function (response) {
-      return response.json();
-    })
+  // var wikiRequest = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&origin=*&titles=" + movieTitle;
+  // // get wikipedia URL for more info & append to page
+  // fetch(wikiRequest)
+  //   .then(function (response) {
+  //     return response.json();
+  //   })
 
-    .then(function (data) {
-      console.log(data);
+  //   .then(function (data) {
+  //     console.log(data);
     //   var wikipedia = data.content_urls.desktop.page;
     //   var wikipediaLi = document.createElement("li");
     //   var wikipediaLink = document.createElement("a");
@@ -286,8 +286,8 @@ function searchMovieByTitle(prevMovieName) {
     //   wikipediaLi.textContent = "Click the link for more information ";
     //   wikipediaLi.appendChild(wikipediaLink);
     //   wikiDiv.appendChild(wikipediaLi);
-    });
-}
+//     });
+// }
 function storeMovies() {
   var movieTitleEl = document.getElementById("movie-title");
   var movieTitle = movieTitleEl.textContent.replace("Save to Watchlist", "");
