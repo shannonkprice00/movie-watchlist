@@ -7,7 +7,7 @@ var savedMovieList = document.getElementById("sortable");
 var searchResultsH3 = document.getElementById("search-results-h3");
 var imageDiv = document.getElementById("image-div");
 var wikiDiv = document.getElementById("wikipedia");
-var searchLabel = document.getElementById("textarea-label");
+var textAreaLabel = document.getElementById("textLabel");
 
 var titleSearchBtn = document.getElementById("title-search-btn-small");
 var actorSearchBtn = document.getElementById("actor-search-btn-small");
@@ -195,48 +195,23 @@ function searchMovieByActor() {
     });
 }
 
-
 function searchMovieByTitle(prevMovieName) {
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
   wikiDiv.innerHTML = "";
   if (prevMovieName instanceof PointerEvent) {
-    var movieTitle = searchEl.value
+    var movieTitle = searchEl.value;
   } else {
     var movieTitle = prevMovieName;
   }
-  console.log(prevMovieName);
-  console.log(movieTitle);
-
-  
-  var wikiRequest =
-    "https://en.wikipedia.org/api/rest_v1/page/summary/" + movieTitle.toLowerCase();
-  // get wikipedia URL for more info & append to page
-  fetch(wikiRequest)
-    .then(function (response) {
-      return response.json();
-    })
-
-    .then(function (data) {
-      console.log(data);
-      var wikipedia = data.content_urls.desktop.page;
-      var wikipediaLi = document.createElement("li");
-      var wikipediaLink = document.createElement("a");
-      wikipediaLink.setAttribute("href", wikipedia);
-      wikipediaLink.setAttribute("target", "_blank");
-      wikipediaLink.textContent = wikipedia;
-      wikipediaLi.textContent = "Click the link for more information ";
-      wikipediaLi.appendChild(wikipediaLink);
-      wikiDiv.appendChild(wikipediaLi);
-    });
   // request movie ID (TMBD)
   var TMBDReqMovieId =
     "https://api.themoviedb.org/3/search/movie?api_key=" +
     TMBDApiKey +
     "&query=" +
     movieTitle;
-  console.log(movieTitle);
+
   fetch(TMBDReqMovieId)
     .then(function (response) {
       return response.json();
@@ -293,6 +268,25 @@ function searchMovieByTitle(prevMovieName) {
           searchEl.textContent = "";
         });
     });
+  var wikiRequest = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&origin=*&titles=Charlie%27s_Angels:_Full_Throttle";
+  // get wikipedia URL for more info & append to page
+  fetch(wikiRequest)
+    .then(function (response) {
+      return response.json();
+    })
+
+    .then(function (data) {
+      console.log(data);
+    //   var wikipedia = data.content_urls.desktop.page;
+    //   var wikipediaLi = document.createElement("li");
+    //   var wikipediaLink = document.createElement("a");
+    //   wikipediaLink.setAttribute("href", wikipedia);
+    //   wikipediaLink.setAttribute("target", "_blank");
+    //   wikipediaLink.textContent = wikipedia;
+    //   wikipediaLi.textContent = "Click the link for more information ";
+    //   wikipediaLi.appendChild(wikipediaLink);
+    //   wikiDiv.appendChild(wikipediaLi);
+    });
 }
 function storeMovies() {
   var movieTitleEl = document.getElementById("movie-title");
@@ -322,36 +316,38 @@ function renderSavedMovies() {
     var li = document.createElement("li");
     var Btn = document.createElement("a");
     li.setAttribute("class", "ui-state-default");
-    Btn.setAttribute("class", "waves-effect waves-light btn");
-    Btn.setAttribute("id", "delete-btn");
+    Btn.setAttribute("class", "waves-effect waves-light btn delete-btn");
     li.textContent = storedMovie;
     Btn.textContent = "Delete";
     li.appendChild(Btn);
     savedMovieList.appendChild(li);
 
     li.addEventListener("click", function (event) {
-      if (event.target !== document.querySelector("#delete-btn")) {
-        console.log(event.target);
+      if (
+        event.target.classList.contains("ui-state-default") &&
+        !event.target.classList.contains("delete-btn")
+      ) {
         var movieName = event.target.textContent;
         console.log(movieName);
         movieName = movieName.replace("Delete", "");
-        console.log(movieName);
-        searchMovieByTitle(movieName);
-      } else if (event.target === document.querySelector("#delete-btn")) {
-        var target = event.target;
-        var movieName = target.parentNode.textContent;
-        console.log(movieName);
-        movieName = movieName.replace("Delete", "");
-        console.log(movieName);
-        var storedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
-        var itemIndex = storedMovies.indexOf(movieName);
-        console.log(movieName);
-        if (itemIndex > -1) {
-          storedMovies.splice(itemIndex, 1);
-          localStorage.setItem("Movies-Saved", JSON.stringify(storedMovies));
-        }
-        target.parentNode.remove();
+        searchMovieByTitle(movieName.trim());
       }
+    });
+    var deleteBtn = li.querySelector(".delete-btn");
+    deleteBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      var target = event.target;
+      var movieName = target.parentNode.textContent;
+      console.log(movieName);
+      movieName = movieName.replace("Delete", "");
+      console.log(movieName);
+      var storedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
+      var itemIndex = storedMovies.indexOf(movieName);
+      if (itemIndex > -1) {
+        storedMovies.splice(itemIndex, 1);
+        localStorage.setItem("Movies-Saved", JSON.stringify(storedMovies));
+      }
+      target.parentNode.remove();
     });
   }
 }
@@ -364,92 +360,48 @@ function init() {
   renderSavedMovies();
 }
 
-
-// need to debug this code to only add event listener to searchBtn IF something is searched for...
-// var searchParameterBtns = document.querySelectorAll(".search-parameter-btn")
-// for (var i = 0; i < searchParameterBtns.length; i++) {
-//   searchParameterBtns[i].addEventListener("click", function(event) {
-//     event.preventDefault();
-//     textareaContainer.style.display = "block";
-//     if (event.target === document.getElementById("title-search-btn-small")) {
-//       searchLabel.textContent = "Search by movie title...";
-//       searchBtn.addEventListener("click", searchMovieByTitle);
-//     } else if (event.target === document.getElementById("actor-search-btn-small")) {
-//       searchLabel.textContent = "Search by featured actor...";
-//       searchBtn.addEventListener("click", searchMovieByActor);
-//     } else if (event.target === document.getElementById("genre-search-btn-small")) {
-//       searchLabel.textContent = "Search by genre...";
-//       searchBtn.addEventListener("click", searchMovieByGenre);
-//     } else if (event.target === document.getElementById("year-search-btn-small")) {
-//       searchLabel.textContent = "Search by release year...";
-//       searchBtn.addEventListener("click", searchMovieByYear);
-//     }
-//   });
-// }
-
-init();
-
-
-// searchBtn.addEventListener("click", searchMovieByTitle);
-// searchBtn.addEventListener("click", searchMovieByActor);
-searchBtn.addEventListener("click", searchMovieByGenre);
-// searchBtn.addEventListener("click", searchMovieByYear);
-
-
-const titleSearchBtn = document.getElementById("title-search-btn-small");
-const actorSearchBtn = document.getElementById("actor-search-btn-small");
-const genreSearchBtn = document.getElementById("genre-search-btn-small");
-const yearSearchBtn = document.getElementById("year-search-btn-small");
-
-
-const textareaContainer = document.getElementById("textarea-container");
-const textAreaLabel = document.getElementById('textLabel');
-
-titleSearchBtn.addEventListener("click", function(event) {
-     event.preventDefault()
+// need to add functionality to return buttons to original color when other button is selected...
+var searchParameterBtns = document.querySelectorAll(".search-parameter-btn");
+var searchFunction;
+for (var i = 0; i < searchParameterBtns.length; i++) {
+  var currentBtn = searchParameterBtns[i];
+  currentBtn.addEventListener("click", function (event) {
+    event.preventDefault();
     textareaContainer.style.display = "block";
-    actorSearchBtn.style.backgroundColor = '';
-    genreSearchBtn.style.backgroundColor = '';
-    yearSearchBtn.style.backgroundColor = '';
-    titleSearchBtn.style.backgroundColor = 'red';
-    textAreaLabel.textContent = 'Searching by Title!';
-    textAreaLabel.style.color = 'red';
-    searchBtn.addEventListener("click", searchMovieByTitle);
-});
-actorSearchBtn.addEventListener("click", function(event) {
-     event.preventDefault()
-    textareaContainer.style.display = "block";
-    titleSearchBtn.style.backgroundColor = '';
-    genreSearchBtn.style.backgroundColor = '';
-    yearSearchBtn.style.backgroundColor = '';
-    actorSearchBtn.style.backgroundColor = 'blue';
-    textAreaLabel.textContent = 'Searching by Actor!';
-    textAreaLabel.style.color = 'blue';
-    searchBtn.addEventListener("click", searchMovieByActor);
-});
-genreSearchBtn.addEventListener("click", function(event) {
-     event.preventDefault()
-    textareaContainer.style.display = "block";
-    titleSearchBtn.style.backgroundColor = '';
-    actorSearchBtn.style.backgroundColor = '';
-    yearSearchBtn.style.backgroundColor = '';
-    genreSearchBtn.style.backgroundColor = 'orange';
-    textAreaLabel.textContent = 'Searching by Genre!';
-    textAreaLabel.style.color = 'orange';
-    searchBtn.addEventListener("click", searchMovieByGenre);
-});
-yearSearchBtn.addEventListener("click", function(event) {
-     event.preventDefault()
-    textareaContainer.style.display = "block";
-    titleSearchBtn.style.backgroundColor = '';
-    actorSearchBtn.style.backgroundColor = '';
-    genreSearchBtn.style.backgroundColor = '';
-    yearSearchBtn.style.backgroundColor = 'purple';
-    textAreaLabel.textContent = 'Searching by Year!';
-    textAreaLabel.style.color = 'purple';
-    searchBtn.addEventListener("click", searchMovieByYear);
-});
-
-
+    currentBtn.style.backgroundColor = "";
+    searchBtn.removeEventListener("click", searchFunction);
+    if (event.target === document.getElementById("title-search-btn-small")) {
+      textAreaLabel.textContent = "Searching by Movie Title!";
+      titleSearchBtn.style.backgroundColor = "red";
+      textAreaLabel.style.color = "red";
+      searchFunction = searchMovieByTitle;
+      searchBtn.addEventListener("click", searchMovieByTitle);
+    } else if (
+      event.target === document.getElementById("actor-search-btn-small")
+    ) {
+      textAreaLabel.textContent = "Searching by Featured Actor!";
+      actorSearchBtn.style.backgroundColor = "blue";
+      textAreaLabel.style.color = "blue";
+      searchFunction = searchMovieByActor;
+      searchBtn.addEventListener("click", searchMovieByActor);
+    } else if (
+      event.target === document.getElementById("genre-search-btn-small")
+    ) {
+      textAreaLabel.textContent = "Searching by Genre!";
+      genreSearchBtn.style.backgroundColor = "orange";
+      textAreaLabel.style.color = "orange";
+      searchFunction = searchMovieByGenre;
+      searchBtn.addEventListener("click", searchMovieByGenre);
+    } else if (
+      event.target === document.getElementById("year-search-btn-small")
+    ) {
+      textAreaLabel.textContent = "Searching by Release Year!";
+      yearSearchBtn.style.backgroundColor = "purple";
+      textAreaLabel.style.color = "purple";
+      searchFunction = searchMovieByYear;
+      searchBtn.addEventListener("click", searchMovieByYear);
+    }
+  });
+}
 
 init();
