@@ -192,6 +192,7 @@ function searchMovieByTitle(prevMovieName) {
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
+  wikiDiv.innerHTML = "";
   console.log(prevMovieName);
   // if (prevMovieName !== PointerEvent || null) {
   //   var movieTitle = prevMovieName
@@ -318,6 +319,8 @@ function renderSavedMovies() {
 
     li.addEventListener("click", function (event) {
       var movieName = event.target.textContent;
+      console.log(movieName);
+      movieName = movieName.replace("Delete", "");
       console.log(movieName);
       searchMovieByTitle(movieName);
     });
