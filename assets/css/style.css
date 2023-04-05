@@ -13,7 +13,7 @@ body{
     border: 5px solid rgb(62, 63, 74);
     border-radius: 10px;
     width: 75vh;
-    height: 5vh;
+    height: fit-content;
     padding: 3%;
 }
 
@@ -50,5 +50,4 @@ body{
 #movie-poster {
     width:25%;
     height: auto;
-
 }
