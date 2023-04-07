@@ -18,6 +18,10 @@ var textareaContainer = document.getElementById("textarea-container");
 
 var TMBDApiKey = "344e887b3fa3f0306933a1df072217b5";
 var storedMovies = [];
+var savedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
+if (savedMovies !== null) {
+  storedMovies = savedMovies;
+}
 
 // var OMBdRequestURL = "http://www.omdbapi.com/?apikey="+OMDbApiKey+"&t=inception";
 var imgSrcUrl = "https://image.tmdb.org/t/p/w500";
@@ -341,7 +345,7 @@ function renderSavedMovies() {
       console.log(movieName);
       movieName = movieName.replace("Delete", "");
       console.log(movieName);
-      var storedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
+      storedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
       var itemIndex = storedMovies.indexOf(movieName);
       if (itemIndex > -1) {
         storedMovies.splice(itemIndex, 1);
