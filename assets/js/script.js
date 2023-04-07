@@ -300,8 +300,10 @@ function searchMovieByTitle(prevMovieName) {
           console.log(wikiPageUrl);
           var wikipediaLi = document.createElement("li");
           var wikipediaLink = document.createElement("a");
+          wikipediaLi.setAttribute("id", "wiki-line");
           wikipediaLink.setAttribute("href", wikiPageUrl);
           wikipediaLink.setAttribute("target", "_blank");
+          wikipediaLink.setAttribute("id", "wiki-link");
           wikipediaLink.textContent = wikiPageUrl;
           wikipediaLi.textContent = "Click the link for more information: ";
           wikipediaLi.appendChild(wikipediaLink);

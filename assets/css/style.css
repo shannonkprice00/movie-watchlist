@@ -249,3 +249,11 @@ footer {
   margin: 0%;
 }
 
+#wiki-link {
+  color:#313b72;
+}
+
+#wiki-line {
+  list-style: none;
+  padding: 2%;
+}
