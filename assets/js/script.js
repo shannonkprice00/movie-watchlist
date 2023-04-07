@@ -7,6 +7,7 @@ var searchResultsH3 = document.getElementById("search-results-h3");
 var imageDiv = document.getElementById("image-div");
 var wikiDiv = document.getElementById("wikipedia");
 var textAreaLabel = document.getElementById("textLabel");
+var initialImage = document.getElementById("initial-image");
 
 var titleSearchBtn = document.getElementById("title-search-btn-small");
 var actorSearchBtn = document.getElementById("actor-search-btn-small");
@@ -25,6 +26,7 @@ var storedMovies = [];
 var imgSrcUrl = "https://image.tmdb.org/t/p/w500";
 
 function searchMovieByGenre() {
+  initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
@@ -89,6 +91,7 @@ function searchMovieByGenre() {
     });
 }
 function searchMovieByYear() {
+  initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
@@ -135,6 +138,7 @@ function searchMovieByYear() {
     });
 }
 function searchMovieByActor() {
+  initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
@@ -204,6 +208,7 @@ function searchMovieByActor() {
 }
 
 function searchMovieByTitle(prevMovieName) {
+  initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
