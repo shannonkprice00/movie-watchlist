@@ -279,10 +279,10 @@ footer {
   background-color: #26a69a;
 }
 
-.title-info{
+#title-info{
   font-family: Montserrat;
   font: bold;
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
 }
 

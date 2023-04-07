@@ -29,6 +29,7 @@ function searchMovieByGenre() {
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
+  wikiDiv.innerHTML = "";
   var genreSearched = searchEl.value;
   var TMBDReqGenreId =
     "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
@@ -92,6 +93,7 @@ function searchMovieByYear() {
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
+  wikiDiv.innerHTML = "";
   var releaseYear = searchEl.value;
   console.log(releaseYear);
   var TMBDReqYear =
@@ -137,6 +139,7 @@ function searchMovieByActor() {
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
+  wikiDiv.innerHTML = "";
   var actorName = document.getElementById("textarea1").value;
   searchEl.textContent = "";
   //use the actor name to fetch the actor ID from TMBD
@@ -176,7 +179,7 @@ function searchMovieByActor() {
           var info = document.createElement("h5");
           var titleInfo = document.createElement("h4");
           info.setAttribute("class", "parameter-info");
-          titleInfo.setAttribute("class", "title-info");
+          titleInfo.setAttribute("id", "title-info");
           titleInfo.textContent =
             "Top 20 Most Popular Movies Featuring " + actorName;
           info.textContent = "Click the Movie Title to Learn More";
@@ -257,6 +260,7 @@ function searchMovieByTitle(prevMovieName) {
           movieSearch.setAttribute("id", "movie-title");
           saveBtn.setAttribute("class", "save-btn");
           movieSearch.textContent = movieTitle.toUpperCase();
+          searchResultsH3.textContent = "Movie Information: "
           overView.textContent = data.overview;
           saveBtn.innerHTML = "Save to Watchlist";
           genreLi.textContent = "Genre: " + data.genres[0].name;
@@ -386,7 +390,7 @@ function init() {
   if (savedMovies !== null) {
     storedMovies = savedMovies;
   }
-  searchResultsH3.style.display = "none";
+  // searchResultsH3.style.display = "none";
   renderSavedMovies();
 }
 
