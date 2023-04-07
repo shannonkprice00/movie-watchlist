@@ -1,5 +1,6 @@
-# movie-watchlist
+# Movie Geeks
 
+## Description:
 A web application for users to search for and compile a list of movies with the ability to use several different search options.
 
 The team created this project to make compiling a list of movies someone wants to watch while also giving them more information about the movie. The movie list is sortable so it can be arranged in the order someone may want to watch them.
@@ -13,3 +14,14 @@ The application solves the problem of not trying to remember the names of movies
 We learned about API's, making an application that is clean, functional, yet simple to use, and also collaborating as a team to achieve a result that the end user can enjoy.
 
 
+## Assets:
+
+![Screenshot of Movie Geeks Application](./assets/Images/MovieGeekScreen.PNG)
+
+## The URL of the deployed application:
+
+https://shannonkprice00.github.io/movie-watchlist/
+
+## The URL of the GitHub repository:
+
+https://github.com/shannonkprice00/movie-watchlist
