@@ -180,6 +180,7 @@ body {
   cursor: pointer;
 }
 
+
 .search-result-p{
   font-family: Montserrat;
   font: bolder;
@@ -220,3 +221,12 @@ body {
   cursor: pointer;
   background-color: #26a69a;
 }
+
+#TMDB {
+    width:5%;
+}
+
+#disclaimer {
+    font-size: 10px;
+}
+
