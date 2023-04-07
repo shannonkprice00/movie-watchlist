@@ -14,9 +14,9 @@ footer {
   justify-content: space-between;
   align-items: center;
   color: aliceblue;
-  font-size: 1.5rem;
+  font-size: 1rem;
   background-color: #313b72;
-  border: 5px solid black;
+  border: 2px solid black;
   border-radius: 10px;
   width: 75vh;
   height: fit-content;
@@ -24,14 +24,14 @@ footer {
 }
 
 .save-btn {
-  font-size: 1rem;
-  background-color: #f3de8a;
+  font-size: .7rem;
+  background-color: #26a69a;
   border-radius: 5px;
 }
 
 .searchBtnContainer {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin-bottom: 5%;
 }
 
@@ -49,23 +49,48 @@ footer {
 }
 
 .ui-state-default {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: .75rem;
+  margin-top: 2%;
+  margin-bottom: 5%;
+  border-radius: 10px;
   border: double;
+  padding: 5%;
 }
 
 .card-content-white-text {
   background-color: #000308;
+  padding: 5%;
+  border-radius: 10px;
+}
+
+.card-action {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .card-blue-grey-darken-1 {
   background-color: #01060b;
+  border-radius: 10px;
+  margin: 2%;
 }
 
 .materialize-textarea {
   color: white;
 }
 
+.input-field {
+  margin: 0%;
+
+}
+
 #textarea-container {
   display: none;
+  margin-left: 10%;
+  margin-right: 11%;
 }
 
 #List {
@@ -84,20 +109,24 @@ footer {
 }
 
 #movie-poster {
-  width: 25%;
+  position: absolute;
+  width: 20%;
   height: auto;
+  left: 68%;
+  bottom: 40%;
 }
 
 #Search {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: #26a69a;
   height: 100%;
   border-right: 2px solid #000308;
 }
 
 #movie-watchlist {
-  padding: 50px;
+  padding: 25px;
   text-align: center;
   background: black;
   color: #8b9eb7;
@@ -117,34 +146,50 @@ footer {
 #movielist {
   font-family: Montserrat;
   color: rgb(11, 10, 10);
-  font-weight: 100%;
-  font-size: 2.4rem;
+  font-weight:550;
+  font-size: 1.75rem;
+  width: 100%;
   text-align: center;
   vertical-align: middle;
   border-bottom: double;
   border-color: black;
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
 
 #search-results-h3 {
+  position: relative;
   border-bottom: double;
   border-color: black;
   font-family: Montserrat;
   font-weight: 100;
   text-align: center;
-  font-size: 3rem;
+  font-size: 2rem;
   padding-bottom: 3%;
+}
+
+#search-results-h3 img {
+  position: absolute;
+  left: 50%;
 }
 
 #sortable {
   font-family: Montserrat;
   font-size: 1.5rem;
-  border: double;
   cursor: pointer;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 #movie-title-search-btn {
   background-color: #313b72;
   color: #fafafb;
+  margin-bottom: 10%;
+  border-radius: 5px;
+}
+
+#search-icon {
+  padding: 0% 12% 0% 12%;
 }
 
 #title-search-btn-small {
@@ -175,28 +220,52 @@ footer {
 
 .delete-btn {
   font-family: Montserrat;
+  font-size: .6rem;
   background-color: #313b72;
   color: #f6faf6;
+  border-radius: 5px;
+  width: 25%;
+  padding: 0% 3% 0% 3%;
 }
 
 #movie-title.search-result-li {
+  position: relative;
   font-family: Montserrat;
-  font-weight: 1.5rem;
+  font-weight: 300;
+  font-size: 1rem;
+  margin-top: 2%;
+  margin-left: 2%;
 }
 
 .save-btn {
   font-family: Montserrat;
-  font-size: 1.2rem;
+  font-size: .7rem;
   cursor: pointer;
 }
 
+.search-parameter-btn {
+  font-size: .7rem;
+}
 
-.search-result-p{
+.search-parameter-btn:hover {
+  background-color: #38ebd9;
+}
+
+.save-btn:hover {
+  background-color: #38ebd9;
+}
+
+.search-result-p {
+  display: flex;
+  flex-wrap: wrap;
   font-family: Montserrat;
   font: bolder;
-  border-bottom: double;
   padding: 5px;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  height: 35vh;
+  min-height: fit-content;
+  width: 60%;
+  margin-left: 2%;
 }
 
 .facts-list-item{
@@ -205,25 +274,28 @@ footer {
   border: double;
   padding: 5px;
   margin: 20px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   justify-content: start;
   background-color: #26a69a;
 }
 
-#title-info{
+.title-info{
   font-family: Montserrat;
   font: bold;
   font-size: 3rem;
+  text-align: center;
 }
 
-#actor-info{
+.parameter-info{
   font-family: Montserrat;
   font: bolder;
+  text-align: center;
+  margin-bottom: 5%;
 }
 
 .search-results-li{
   font-family: Montserrat;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font: bolder;
   border: double;
   padding: 5px;
@@ -246,7 +318,17 @@ footer {
 }
 
 #main-content {
+  display: flex;
+  height: 100%;
   margin: 0%;
+}
+
+#saved-movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0%;
+  width: 100%;
 }
 
 #wiki-link {
@@ -256,4 +338,19 @@ footer {
 #wiki-line {
   list-style: none;
   padding: 2%;
+  font-size: 1rem;
+}
+
+#search-results-list {
+  position: relative;
+}
+
+#test {
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#image-div {
+text-align: center;
 }

@@ -2,96 +2,100 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@1&family=Raleway:ital,wght@1,200&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- The following link is throwing an error...I've commented it out to see if we need it -->
-    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> -->
-    
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Movie Watch List</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@1&family=Raleway:ital,wght@1,200&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- The following link is throwing an error...I've commented it out to see if we need it -->
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> -->
+
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Movie Watch List</title>
 </head>
 <header>
-    <h1 id="movie-watchlist">Movie Watch-List</h1>
+  <h1 id="movie-watchlist">Movie Watch-List</h1>
 </header>
 
 <body>
-    <div id="main-content" class="row">
-        <!-- This is our search box -->
-      <div id="Search" class="col s12 m4 l3">
-        <div class="row">
-            <div id="Card" class="col s12 m6">
-              <div class="card-blue-grey-darken-1">
-                <div class="card-content-white-text">
-                  <span class="card-title">Movie Search</span>
-                  <p id="searchby">Search by Title, Actor, Genre, Or Year.</p>
-                </div>
-                <div class="card-action">
-                    <div class="row">
-                        <form class="col s12">
-                          <div class="row">
-                            <div class="input-field col s12">
-                              <div class="searchBtnContainer">
-                              <button id="title-search-btn-small" class="btn search-parameter-btn">Title</button>
-                              <button id="actor-search-btn-small" class="btn search-parameter-btn">Actor</button>
-                              <button id="genre-search-btn-small" class="btn search-parameter-btn">Genre</button>
-                              <button id="year-search-btn-small" class="btn search-parameter-btn">Year</button>
-                            </div>
-                            <div id="textarea-container">
-                              <label id="textLabel" for="textarea1"></label>
-                              <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            </div>
-                            </div>
-                          </div>
-                        </form>
+  <div id="main-content" class="row">
+    <!-- This is our search box -->
+    <div id="Search" class="col s12 m4 l3">
+      <div class="row">
+        <div id="Card" class="col s12 m6">
+          <div class="card-blue-grey-darken-1">
+            <div class="card-content-white-text">
+              <span class="card-title">Movie Search</span>
+              <p id="searchby">Search by Title, Actor, Genre, Or Year.</p>
+            </div>
+            <div class="card-action">
+              <div id="test" class="row">
+                <form id="#form" class="col s12">
+                  <div class="row">
+                    <div id="parameter-btn-div" class="input-field col s12">
+                      <div class="searchBtnContainer">
+                        <button id="title-search-btn-small" class="btn search-parameter-btn">
+                          Title
+                        </button>
+                        <button id="actor-search-btn-small" class="btn search-parameter-btn">
+                          Actor
+                        </button>
+                        <button id="genre-search-btn-small" class="btn search-parameter-btn">
+                          Genre
+                        </button>
+                        <button id="year-search-btn-small" class="btn search-parameter-btn">
+                          Year
+                        </button>
                       </div>
-                      <!-- This is our submit button -->
-                  <button id="movie-title-search-btn" class="btn waves-effect waves-light" type="submit" name="action">SUBMIT
-                    <i id="search-icon" class="material-icons right">Search</i>
-                  </button>
-                </div>
+                      <div id="textarea-container">
+                        <label id="textLabel" for="textarea1"></label>
+                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
+              <!-- This is our submit button -->
+              <button id="movie-title-search-btn" class="btn waves-effect waves-light" type="submit" name="action">
+                <i id="search-icon" class="material-icons right">Search</i>
+              </button>
             </div>
           </div>
-
-          <!-- My Movie List  -->
-          <div id="saved-movie-list" class="container">
-            <h2 id="movielist">My Movie List</h2>
-            <ul id="sortable">
-              </ul>
-          </div>
         </div>
-
-
-
-      <div id="search-results-div" class="col s12 m8 l9"> 
-        <h3 id = "search-results-h3">Search Results</h3>
-        <div id="image-div"></div>
-
-          <ul id="search-results-list"></ul>
-          <div id="wikipedia"></div>
       </div>
 
+      <!-- My Movie List  -->
+      <div id="saved-movie-list" class="container">
+        <h2 id="movielist">My Movie-Watch List</h2>
+        <ul id="sortable"></ul>
+      </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+    <div id="search-results-div" class="col s12 m8 l9">
+      <div id="test">
+        <h3 id="search-results-h3">Search Results</h3>
+        <div id="image-div"></div>
+      </div>
+      <ul id="search-results-list"></ul>
+      <div id="wikipedia"></div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#sortable" ).sortable();
-  } );
-  </script>
-    <script src="./assets/js/script.js"></script>
 
-    <footer>
-      <div id="disclaimer">"This product uses the TMDB API but is not endorsed or certified by TMDB." </div>
-      <img id="TMDB" src="./assets/Images/TMDB.png" alt="Logo for TMDB">
-    </footer>
+  <script src="./assets/js/script.js"></script>
 
+  <footer>
+    <div id="disclaimer">
+      "This product uses the TMDB API but is not endorsed or certified by
+      TMDB."
+    </div>
+    <img id="TMDB" src="./assets/Images/TMDB.png" alt="Logo for TMDB" />
+  </footer>
 </body>
 
 </html>
