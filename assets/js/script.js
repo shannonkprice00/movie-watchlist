@@ -13,6 +13,7 @@ var titleSearchBtn = document.getElementById("title-search-btn-small");
 var actorSearchBtn = document.getElementById("actor-search-btn-small");
 var genreSearchBtn = document.getElementById("genre-search-btn-small");
 var yearSearchBtn = document.getElementById("year-search-btn-small");
+var btnSearchClass = document.getElementsByClassName('btn search-parameter-btn');
 
 var textareaContainer = document.getElementById("textarea-container");
 
@@ -310,6 +311,8 @@ function renderSavedMovies() {
   if (savedMovies !== null) {
     storedMovies = savedMovies;
   }
+ console.log(savedMovies);
+ console.log(storedMovies);
 
   for (var i = 0; i < storedMovies.length; i++) {
     var storedMovie = storedMovies[i];
@@ -372,32 +375,28 @@ for (var i = 0; i < searchParameterBtns.length; i++) {
     searchBtn.removeEventListener("click", searchFunction);
     if (event.target === document.getElementById("title-search-btn-small")) {
       textAreaLabel.textContent = "Searching by Movie Title!";
-      titleSearchBtn.style.backgroundColor = "red";
-      textAreaLabel.style.color = "red";
+      btnSearchClass.style.color = '#26a69a';
       searchFunction = searchMovieByTitle;
       searchBtn.addEventListener("click", searchMovieByTitle);
     } else if (
       event.target === document.getElementById("actor-search-btn-small")
     ) {
       textAreaLabel.textContent = "Searching by Featured Actor!";
-      actorSearchBtn.style.backgroundColor = "blue";
-      textAreaLabel.style.color = "blue";
+      btnSearchClass.style.color = '#26a69a';
       searchFunction = searchMovieByActor;
       searchBtn.addEventListener("click", searchMovieByActor);
     } else if (
       event.target === document.getElementById("genre-search-btn-small")
     ) {
       textAreaLabel.textContent = "Searching by Genre!";
-      genreSearchBtn.style.backgroundColor = "orange";
-      textAreaLabel.style.color = "orange";
+      btnSearchClass.style.color = '#26a69a';
       searchFunction = searchMovieByGenre;
       searchBtn.addEventListener("click", searchMovieByGenre);
     } else if (
       event.target === document.getElementById("year-search-btn-small")
     ) {
       textAreaLabel.textContent = "Searching by Release Year!";
-      yearSearchBtn.style.backgroundColor = "purple";
-      textAreaLabel.style.color = "purple";
+      btnSearchClass.style.color = '#26a69a';
       searchFunction = searchMovieByYear;
       searchBtn.addEventListener("click", searchMovieByYear);
     }
