@@ -17,17 +17,19 @@ var textareaContainer = document.getElementById("textarea-container");
 
 var TMBDApiKey = "344e887b3fa3f0306933a1df072217b5";
 var storedMovies = [];
-var savedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
-if (savedMovies !== null) {
-  storedMovies = savedMovies;
-}
+// var savedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
+// if (savedMovies !== null) {
+//   storedMovies = savedMovies;
+// }
 
 var imgSrcUrl = "https://image.tmdb.org/t/p/w500";
 
 function searchMovieByGenre() {
+  searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
+  wikiDiv.innerHTML = "";
   var genreSearched = searchEl.value;
   var TMBDReqGenreId =
     "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
@@ -62,13 +64,13 @@ function searchMovieByGenre() {
         .then(function (data) {
           var titleInfo = document.createElement("h4");
           var info = document.createElement("h5");
-          info.setAttribute("id", "genre-info");
+          info.setAttribute("class", "parameter-info");
           titleInfo.setAttribute("id", "title-info");
           titleInfo.textContent =
             "Top 20 Most Popular " + selectedGenre.name + " Movies";
           info.textContent = "Click the Movie Title to Learn More";
           searchResultsH3.appendChild(titleInfo);
-          searchResultsH3.appendChild(info);
+          searchResultsList.appendChild(info);
           // loop through the top 20 movies and create list items for each
           for (var i = 0; i < data.results.length; i++) {
             var movieSearch = document.createElement("li");
@@ -87,9 +89,11 @@ function searchMovieByGenre() {
     });
 }
 function searchMovieByYear() {
+  searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
+  wikiDiv.innerHTML = "";
   var releaseYear = searchEl.value;
   console.log(releaseYear);
   var TMBDReqYear =
@@ -106,13 +110,13 @@ function searchMovieByYear() {
       console.log(data);
       var titleInfo = document.createElement("h4");
       var info = document.createElement("h5");
-      info.setAttribute("id", "genre-info");
+      info.setAttribute("class", "parameter-info");
       titleInfo.setAttribute("id", "title-info");
       titleInfo.textContent =
         "Top 20 Most Popular Movies Released In " + releaseYear;
       info.textContent = "Click the Movie Title to Learn More";
       searchResultsH3.appendChild(titleInfo);
-      searchResultsH3.appendChild(info);
+      searchResultsList.appendChild(info);
       // loop through the top 20 movies and create list items for each
       for (var i = 0; i < data.results.length; i++) {
         var movieSearch = document.createElement("li");
@@ -131,9 +135,11 @@ function searchMovieByYear() {
     });
 }
 function searchMovieByActor() {
+  searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
+  wikiDiv.innerHTML = "";
   var actorName = document.getElementById("textarea1").value;
   searchEl.textContent = "";
   //use the actor name to fetch the actor ID from TMBD
@@ -172,13 +178,14 @@ function searchMovieByActor() {
         .then(function (data) {
           var info = document.createElement("h5");
           var titleInfo = document.createElement("h4");
-          info.setAttribute("id", "actor-info");
+          info.setAttribute("class", "parameter-info");
           titleInfo.setAttribute("id", "title-info");
           titleInfo.textContent =
             "Top 20 Most Popular Movies Featuring " + actorName;
           info.textContent = "Click the Movie Title to Learn More";
-          titleInfo.appendChild(info);
+          searchResultsList.appendChild(info);
           searchResultsH3.appendChild(titleInfo);
+         
           // loop through the top 20 movies and create list items for each
           for (var i = 0; i < data.results.length; i++) {
             var movieSearch = document.createElement("li");
@@ -197,6 +204,7 @@ function searchMovieByActor() {
 }
 
 function searchMovieByTitle(prevMovieName) {
+  searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
   searchResultsList.innerHTML = "";
   imageDiv.innerHTML = "";
@@ -243,6 +251,7 @@ function searchMovieByTitle(prevMovieName) {
           movieImage.setAttribute("src", movieImageSrc);
           movieImage.setAttribute("id", "movie-poster");
           factsList.setAttribute("id", "facts-list");
+          genreLi.setAttribute("id", "genre-list-item");
           genreLi.setAttribute("class", "facts-list-item");
           releaseDateLi.setAttribute("class", "facts-list-item");
           tagLineLi.setAttribute("class", "facts-list-item");
@@ -251,6 +260,7 @@ function searchMovieByTitle(prevMovieName) {
           movieSearch.setAttribute("id", "movie-title");
           saveBtn.setAttribute("class", "save-btn");
           movieSearch.textContent = movieTitle.toUpperCase();
+          searchResultsH3.textContent = "Movie Information: "
           overView.textContent = data.overview;
           saveBtn.innerHTML = "Save to Watchlist";
           genreLi.textContent = "Genre: " + data.genres[0].name;
@@ -262,11 +272,11 @@ function searchMovieByTitle(prevMovieName) {
           }
           movieSearch.appendChild(saveBtn);
           searchResultsList.append(movieSearch);
-          searchResultsList.insertBefore(overView, movieSearch.nextSibling);
+          searchResultsList.insertBefore(movieImage, movieSearch.nextSibling);
+          searchResultsList.insertBefore(overView, movieImage.nextSibling);
           factsList.appendChild(genreLi);
           factsList.appendChild(releaseDateLi);
           factsList.appendChild(tagLineLi);
-          imageDiv.appendChild(movieImage);
           searchResultsList.insertBefore(factsList, overView.nextSibling);
 
           saveBtn.addEventListener("click", storeMovies);
@@ -300,8 +310,10 @@ function searchMovieByTitle(prevMovieName) {
           console.log(wikiPageUrl);
           var wikipediaLi = document.createElement("li");
           var wikipediaLink = document.createElement("a");
+          wikipediaLi.setAttribute("id", "wiki-line");
           wikipediaLink.setAttribute("href", wikiPageUrl);
           wikipediaLink.setAttribute("target", "_blank");
+          wikipediaLink.setAttribute("id", "wiki-link");
           wikipediaLink.textContent = wikiPageUrl;
           wikipediaLi.textContent = "Click the link for more information: ";
           wikipediaLi.appendChild(wikipediaLink);
@@ -378,6 +390,7 @@ function init() {
   if (savedMovies !== null) {
     storedMovies = savedMovies;
   }
+  // searchResultsH3.style.display = "none";
   renderSavedMovies();
 }
 
@@ -393,36 +406,40 @@ for (var i = 0; i < searchParameterBtns.length; i++) {
     searchBtn.removeEventListener("click", searchFunction);
     if (event.target === document.getElementById("title-search-btn-small")) {
       textAreaLabel.textContent = "Searching by Movie Title!";
-      titleSearchBtn.style.backgroundColor = "red";
-      textAreaLabel.style.color = "red";
+      // titleSearchBtn.style.backgroundColor = "red";
+      // textAreaLabel.style.color = "red";
       searchFunction = searchMovieByTitle;
       searchBtn.addEventListener("click", searchMovieByTitle);
     } else if (
       event.target === document.getElementById("actor-search-btn-small")
     ) {
       textAreaLabel.textContent = "Searching by Featured Actor!";
-      actorSearchBtn.style.backgroundColor = "blue";
-      textAreaLabel.style.color = "blue";
+      // actorSearchBtn.style.backgroundColor = "blue";
+      // textAreaLabel.style.color = "blue";
       searchFunction = searchMovieByActor;
       searchBtn.addEventListener("click", searchMovieByActor);
     } else if (
       event.target === document.getElementById("genre-search-btn-small")
     ) {
       textAreaLabel.textContent = "Searching by Genre!";
-      genreSearchBtn.style.backgroundColor = "orange";
-      textAreaLabel.style.color = "orange";
+      // genreSearchBtn.style.backgroundColor = "orange";
+      // textAreaLabel.style.color = "orange";
       searchFunction = searchMovieByGenre;
       searchBtn.addEventListener("click", searchMovieByGenre);
     } else if (
       event.target === document.getElementById("year-search-btn-small")
     ) {
       textAreaLabel.textContent = "Searching by Release Year!";
-      yearSearchBtn.style.backgroundColor = "purple";
-      textAreaLabel.style.color = "purple";
+      // yearSearchBtn.style.backgroundColor = "purple";
+      // textAreaLabel.style.color = "purple";
       searchFunction = searchMovieByYear;
       searchBtn.addEventListener("click", searchMovieByYear);
     }
   });
 }
+
+$( function() {
+  $( "#sortable" ).sortable();
+} );
 
 init();
