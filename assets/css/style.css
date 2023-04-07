@@ -3,6 +3,12 @@ body {
   font-size: 18px;
 }
 
+footer {
+  border-top:3px solid #01060b;
+  text-align: center;
+  background-color: #313b72;
+}
+
 .search-result-li {
   display: flex;
   justify-content: space-between;
@@ -83,7 +89,11 @@ body {
 }
 
 #Search {
+  display: flex;
+  flex-direction: column;
   background-color: #26a69a;
+  height: 100%;
+  border-right: 2px solid #000308;
 }
 
 #movie-watchlist {
@@ -222,11 +232,20 @@ body {
   background-color: #26a69a;
 }
 
+.search-results-li:hover {
+  background-color: #313b72;
+}
+
 #TMDB {
     width:5%;
 }
 
 #disclaimer {
-    font-size: 10px;
+    font-size: 12px;
+    padding: 10px;
+}
+
+#main-content {
+  margin: 0%;
 }
 

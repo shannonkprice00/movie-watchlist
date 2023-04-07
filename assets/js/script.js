@@ -303,7 +303,7 @@ function searchMovieByTitle(prevMovieName) {
           wikipediaLink.setAttribute("href", wikiPageUrl);
           wikipediaLink.setAttribute("target", "_blank");
           wikipediaLink.textContent = wikiPageUrl;
-          wikipediaLi.textContent = "Click the link for more information ";
+          wikipediaLi.textContent = "Click the link for more information: ";
           wikipediaLi.appendChild(wikipediaLink);
           wikiDiv.appendChild(wikipediaLi);
         });
