@@ -37,7 +37,9 @@ body {
 .card-title {
   font-family: Montserrat;
   color: #8b9eb7;
-  font-weight: 200%;
+  font-weight: bold;
+  font-size: 2rem;
+  border-bottom: double ;
 }
 
 .ui-state-default {
@@ -53,8 +55,8 @@ body {
 }
 
 .materialize-textarea {
-    color: white;
-  }
+  color: white;
+}
 
 #textarea-container {
   display: none;
@@ -81,11 +83,7 @@ body {
 }
 
 #Search {
-  background-color: #6b9d8a;
-}
-
-#Search-Results {
-  background-color: #f3de8a;
+  background-color: #26a69a;
 }
 
 #movie-watchlist {
@@ -96,12 +94,14 @@ body {
   font-size: 50px;
   font-family: Montserrat;
   margin-top: 0%;
+  margin-bottom: 0;
+  border-bottom: 5px double #8b9eb7;
 }
 
 #searchby {
   font-family: Montserrat;
   color: #8b9eb7;
-  font-weight: 200%;
+  font-size: 1.2rem;
 }
 
 #movielist {
@@ -129,17 +129,98 @@ body {
   font-family: Montserrat;
   font-size: 1.5rem;
   border: double;
+  cursor: pointer;
 }
 
 #movie-title-search-btn {
-  background-color: #8b9eb7;
-  color: #01060b;
+  background-color: #313b72;
+  color: #fafafb;
+}
+
+#title-search-btn-small {
+  color: black;
+  background-color: #26a69a;
+  font-family: Montserrat;
+}
+
+#actor-search-btn-small {
+  color: black;
+  font-family: Montserrat;
+}
+
+#genre-search-btn-small {
+  color: #000308;
+  font-family: Montserrat;
+}
+
+#year-search-btn-small {
+  color: #000308;
+  font-family: Montserrat;
+}
+
+#textLabel.active {
+  font-family: Montserrat;
+  font-size: 1.1rem;
+}
+
+.delete-btn {
+  font-family: Montserrat;
+  background-color: #313b72;
+  color: #f6faf6;
+}
+
+#movie-title.search-result-li {
+  font-family: Montserrat;
+  font-weight: 1.5rem;
+}
+
+.save-btn {
+  font-family: Montserrat;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 
-/* #title-search-btn-small{
-    background-color: #F3DE8A;
-} */
+.search-result-p{
+  font-family: Montserrat;
+  font: bolder;
+  border-bottom: double;
+  padding: 5px;
+  font-size: 1.5rem;
+}
+
+.facts-list-item{
+  font-family: Montserrat;
+  font: bolder;
+  border: double;
+  padding: 5px;
+  margin: 20px;
+  font-size: 1.5rem;
+  justify-content: start;
+  background-color: #26a69a;
+}
+
+#title-info{
+  font-family: Montserrat;
+  font: bold;
+  font-size: 3rem;
+}
+
+#actor-info{
+  font-family: Montserrat;
+  font: bolder;
+}
+
+.search-results-li{
+  font-family: Montserrat;
+  font-size: 1.5rem;
+  font: bolder;
+  border: double;
+  padding: 5px;
+  margin: 20px;
+  cursor: pointer;
+  background-color: #26a69a;
+}
 
 #TMDB {
     width:5%;
@@ -148,3 +229,4 @@ body {
 #disclaimer {
     font-size: 10px;
 }
+
