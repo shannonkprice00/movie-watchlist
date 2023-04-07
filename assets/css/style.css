@@ -196,7 +196,6 @@ footer {
 
 #title-search-btn-small {
   color: black;
-  background-color: #26a69a;
   font-family: Montserrat;
 }
 
@@ -252,6 +251,10 @@ footer {
 }
 
 .search-parameter-btn:hover {
+  background-color: #38ebd9;
+}
+
+.delete-btn:hover {
   background-color: #38ebd9;
 }
 
