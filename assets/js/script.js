@@ -1,4 +1,3 @@
-// var OMDbApiKey = "dfaa8972";
 var searchBtn = document.getElementById("movie-title-search-btn");
 var searchResultsDiv = document.getElementById("search-results");
 var searchEl = document.getElementById("textarea1");
@@ -23,7 +22,6 @@ if (savedMovies !== null) {
   storedMovies = savedMovies;
 }
 
-// var OMBdRequestURL = "http://www.omdbapi.com/?apikey="+OMDbApiKey+"&t=inception";
 var imgSrcUrl = "https://image.tmdb.org/t/p/w500";
 
 function searchMovieByGenre() {
@@ -172,7 +170,6 @@ function searchMovieByActor() {
           return response.json();
         })
         .then(function (data) {
-          console.log(data);
           var info = document.createElement("h5");
           var titleInfo = document.createElement("h4");
           info.setAttribute("id", "actor-info");
@@ -258,7 +255,11 @@ function searchMovieByTitle(prevMovieName) {
           saveBtn.innerHTML = "Save to Watchlist";
           genreLi.textContent = "Genre: " + data.genres[0].name;
           releaseDateLi.textContent = "Release Date: " + data.release_date;
-          tagLineLi.textContent = "Tagline: " + data.tagline;
+          if (data.tagline === "") {
+            tagLineLi.textContent = "Tagline: NONE";
+          } else if (data.tagline) {
+            tagLineLi.textContent = "Tagline: " + data.tagline;
+          }
           movieSearch.appendChild(saveBtn);
           searchResultsList.append(movieSearch);
           searchResultsList.insertBefore(overView, movieSearch.nextSibling);
@@ -272,25 +273,41 @@ function searchMovieByTitle(prevMovieName) {
           searchEl.textContent = "";
         });
     });
-  // var wikiRequest = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&origin=*&titles=" + movieTitle;
-  // // get wikipedia URL for more info & append to page
-  // fetch(wikiRequest)
-  //   .then(function (response) {
-  //     return response.json();
-  //   })
-
-  //   .then(function (data) {
-  //     console.log(data);
-    //   var wikipedia = data.content_urls.desktop.page;
-    //   var wikipediaLi = document.createElement("li");
-    //   var wikipediaLink = document.createElement("a");
-    //   wikipediaLink.setAttribute("href", wikipedia);
-    //   wikipediaLink.setAttribute("target", "_blank");
-    //   wikipediaLink.textContent = wikipedia;
-    //   wikipediaLi.textContent = "Click the link for more information ";
-    //   wikipediaLi.appendChild(wikipediaLink);
-    //   wikiDiv.appendChild(wikipediaLi);
-//     });
+  var wikiRequest =
+    "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=" +
+    movieTitle +
+    "&utf8=&format=json&origin=*";
+  // get wikipedia URL for more info & append to page
+  fetch(wikiRequest)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      var pageId = data.query.search[0].pageid;
+      console.log(pageId);
+      var wikiURLRequest =
+        "https://en.wikipedia.org/w/api.php?action=query&prop=info&inprop=url&pageids=" +
+        pageId +
+        "&format=json&origin=*";
+      fetch(wikiURLRequest)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          var page = Object.values(data.query.pages)[0];
+          var wikiPageUrl = page.fullurl;
+          console.log(wikiPageUrl);
+          var wikipediaLi = document.createElement("li");
+          var wikipediaLink = document.createElement("a");
+          wikipediaLink.setAttribute("href", wikiPageUrl);
+          wikipediaLink.setAttribute("target", "_blank");
+          wikipediaLink.textContent = wikiPageUrl;
+          wikipediaLi.textContent = "Click the link for more information ";
+          wikipediaLi.appendChild(wikipediaLink);
+          wikiDiv.appendChild(wikipediaLi);
+        });
+    });
 }
 function storeMovies() {
   var movieTitleEl = document.getElementById("movie-title");
