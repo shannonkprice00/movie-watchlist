@@ -383,7 +383,7 @@ function renderSavedMovies() {
 $( function() {
   $( "#sortable" ).sortable();
 } );
-
+// Resets order of saved movies array to match sorted items so the list order is persistent
 Sortable.create(savedMovieList, {
   onSort: function(evt) {
     // Get the indexes of the dragged and dropped elements
