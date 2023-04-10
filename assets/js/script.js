@@ -8,24 +8,24 @@ var imageDiv = document.getElementById("image-div");
 var wikiDiv = document.getElementById("wikipedia");
 var textAreaLabel = document.getElementById("textLabel");
 var initialImage = document.getElementById("initial-image");
-
 var titleSearchBtn = document.getElementById("title-search-btn-small");
 var actorSearchBtn = document.getElementById("actor-search-btn-small");
 var genreSearchBtn = document.getElementById("genre-search-btn-small");
 var yearSearchBtn = document.getElementById("year-search-btn-small");
-
 var textareaContainer = document.getElementById("textarea-container");
+var searchParameterBtns = document.querySelectorAll(".search-parameter-btn");
+var modal = document.getElementById("modal1");
+var searchFunction;
+var searchPerformed = false;
+
+var modalInstance = M.Modal.init(modal);
 
 var TMBDApiKey = "344e887b3fa3f0306933a1df072217b5";
 var storedMovies = [];
-// var savedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
-// if (savedMovies !== null) {
-//   storedMovies = savedMovies;
-// }
-
 var imgSrcUrl = "https://image.tmdb.org/t/p/w500";
 
 function searchMovieByGenre() {
+  searchPerformed = true;
   initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
@@ -43,7 +43,6 @@ function searchMovieByGenre() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var genres = data.genres;
       var selectedGenre = null;
       // search for the iteration that matches the searched genre
@@ -82,7 +81,6 @@ function searchMovieByGenre() {
             searchResultsList.appendChild(movieSearch);
             movieSearch.addEventListener("click", function (event) {
               var movieName = event.target.textContent;
-              console.log(movieName);
               searchMovieByTitle(movieName);
             });
           }
@@ -91,6 +89,7 @@ function searchMovieByGenre() {
     });
 }
 function searchMovieByYear() {
+  searchPerformed = true;
   initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
@@ -98,7 +97,6 @@ function searchMovieByYear() {
   imageDiv.innerHTML = "";
   wikiDiv.innerHTML = "";
   var releaseYear = searchEl.value;
-  console.log(releaseYear);
   var TMBDReqYear =
     "https://api.themoviedb.org/3/discover/movie?api_key=" +
     TMBDApiKey +
@@ -109,8 +107,6 @@ function searchMovieByYear() {
       return response.json();
     })
     .then(function (data) {
-      console.log("Movies by Year: ");
-      console.log(data);
       var titleInfo = document.createElement("h4");
       var info = document.createElement("h5");
       info.setAttribute("class", "parameter-info");
@@ -130,7 +126,6 @@ function searchMovieByYear() {
         searchResultsList.appendChild(movieSearch);
         movieSearch.addEventListener("click", function (event) {
           var movieName = event.target.textContent;
-          console.log(movieName);
           searchMovieByTitle(movieName);
         });
       }
@@ -138,6 +133,7 @@ function searchMovieByYear() {
     });
 }
 function searchMovieByActor() {
+  searchPerformed = true;
   initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
@@ -158,11 +154,10 @@ function searchMovieByActor() {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var actorId = data.results[0].id;
       var profilePath = data.results[0].profile_path;
       if (profilePath) {
-        var profileUrl = "https://image.tmdb.org/t/p/w500" + profilePath;
+        var profileUrl = imgSrcUrl + profilePath;
       }
       var profileImg = document.createElement("img");
       profileImg.setAttribute("src", profileUrl);
@@ -199,7 +194,6 @@ function searchMovieByActor() {
             searchResultsList.appendChild(movieSearch);
             movieSearch.addEventListener("click", function (event) {
               var movieName = event.target.textContent;
-              console.log(movieName);
               searchMovieByTitle(movieName);
             });
           }
@@ -208,6 +202,7 @@ function searchMovieByActor() {
 }
 
 function searchMovieByTitle(prevMovieName) {
+  searchPerformed = true;
   initialImage.style.display = "none";
   searchResultsH3.style.display = "block";
   searchResultsH3.innerHTML = "";
@@ -253,6 +248,7 @@ function searchMovieByTitle(prevMovieName) {
           var genreLi = document.createElement("li");
           var releaseDateLi = document.createElement("li");
           var tagLineLi = document.createElement("li");
+          var genreNames = data.genres.map(genre => genre.name).join(', ');
           movieImage.setAttribute("src", movieImageSrc);
           movieImage.setAttribute("id", "movie-poster");
           factsList.setAttribute("id", "facts-list");
@@ -268,7 +264,7 @@ function searchMovieByTitle(prevMovieName) {
           searchResultsH3.textContent = "Movie Information: "
           overView.textContent = data.overview;
           saveBtn.innerHTML = "Save to Watchlist";
-          genreLi.textContent = "Genre: " + data.genres[0].name;
+          genreLi.textContent = "Genre: " + genreNames;
           releaseDateLi.textContent = "Release Date: " + data.release_date;
           if (data.tagline === "") {
             tagLineLi.textContent = "Tagline: NONE";
@@ -298,9 +294,7 @@ function searchMovieByTitle(prevMovieName) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var pageId = data.query.search[0].pageid;
-      console.log(pageId);
       var wikiURLRequest =
         "https://en.wikipedia.org/w/api.php?action=query&prop=info&inprop=url&pageids=" +
         pageId +
@@ -312,7 +306,6 @@ function searchMovieByTitle(prevMovieName) {
         .then(function (data) {
           var page = Object.values(data.query.pages)[0];
           var wikiPageUrl = page.fullurl;
-          console.log(wikiPageUrl);
           var wikipediaLi = document.createElement("li");
           var wikipediaLink = document.createElement("a");
           wikipediaLi.setAttribute("id", "wiki-line");
@@ -329,7 +322,6 @@ function searchMovieByTitle(prevMovieName) {
 function storeMovies() {
   var movieTitleEl = document.getElementById("movie-title");
   var movieTitle = movieTitleEl.textContent.replace("Save to Watchlist", "");
-  console.log(movieTitle);
   if (movieTitle === "") {
     return;
   }
@@ -354,6 +346,7 @@ function renderSavedMovies() {
     var li = document.createElement("li");
     var Btn = document.createElement("a");
     li.setAttribute("class", "ui-state-default");
+    li.setAttribute("data-index", "i");
     Btn.setAttribute("class", "waves-effect waves-light btn delete-btn");
     li.textContent = storedMovie;
     Btn.textContent = "Delete";
@@ -366,7 +359,6 @@ function renderSavedMovies() {
         !event.target.classList.contains("delete-btn")
       ) {
         var movieName = event.target.textContent;
-        console.log(movieName);
         movieName = movieName.replace("Delete", "");
         searchMovieByTitle(movieName.trim());
       }
@@ -376,9 +368,7 @@ function renderSavedMovies() {
       event.stopPropagation();
       var target = event.target;
       var movieName = target.parentNode.textContent;
-      console.log(movieName);
       movieName = movieName.replace("Delete", "");
-      console.log(movieName);
       storedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
       var itemIndex = storedMovies.indexOf(movieName);
       if (itemIndex > -1) {
@@ -390,61 +380,79 @@ function renderSavedMovies() {
   }
 }
 
+$( function() {
+  $( "#sortable" ).sortable();
+} );
+
+Sortable.create(savedMovieList, {
+  onSort: function(evt) {
+    // Get the indexes of the dragged and dropped elements
+    var oldIndex = evt.oldIndex;
+    var newIndex = evt.newIndex;
+
+    // Update the storedMovies array to reflect the new order of the items
+    var movie = storedMovies[oldIndex];
+    storedMovies.splice(oldIndex, 1);
+    storedMovies.splice(newIndex, 0, movie);
+
+    // Update localStorage with the new order of the items
+    localStorage.setItem("Movies-Saved", JSON.stringify(storedMovies));
+  }
+});
+
 function init() {
   var savedMovies = JSON.parse(localStorage.getItem("Movies-Saved"));
   if (savedMovies !== null) {
     storedMovies = savedMovies;
   }
-  // searchResultsH3.style.display = "none";
   renderSavedMovies();
 }
 
-// need to add functionality to return buttons to original color when other button is selected...
-var searchParameterBtns = document.querySelectorAll(".search-parameter-btn");
-var searchFunction;
-for (var i = 0; i < searchParameterBtns.length; i++) {
-  var currentBtn = searchParameterBtns[i];
-  currentBtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    textareaContainer.style.display = "block";
-    currentBtn.style.backgroundColor = "";
-    searchBtn.removeEventListener("click", searchFunction);
-    if (event.target === document.getElementById("title-search-btn-small")) {
-      textAreaLabel.textContent = "Searching by Movie Title!";
-      // titleSearchBtn.style.backgroundColor = "red";
-      // textAreaLabel.style.color = "red";
-      searchFunction = searchMovieByTitle;
-      searchBtn.addEventListener("click", searchMovieByTitle);
-    } else if (
-      event.target === document.getElementById("actor-search-btn-small")
-    ) {
-      textAreaLabel.textContent = "Searching by Featured Actor!";
-      // actorSearchBtn.style.backgroundColor = "blue";
-      // textAreaLabel.style.color = "blue";
-      searchFunction = searchMovieByActor;
-      searchBtn.addEventListener("click", searchMovieByActor);
-    } else if (
-      event.target === document.getElementById("genre-search-btn-small")
-    ) {
-      textAreaLabel.textContent = "Searching by Genre!";
-      // genreSearchBtn.style.backgroundColor = "orange";
-      // textAreaLabel.style.color = "orange";
-      searchFunction = searchMovieByGenre;
-      searchBtn.addEventListener("click", searchMovieByGenre);
-    } else if (
-      event.target === document.getElementById("year-search-btn-small")
-    ) {
-      textAreaLabel.textContent = "Searching by Release Year!";
-      // yearSearchBtn.style.backgroundColor = "purple";
-      // textAreaLabel.style.color = "purple";
-      searchFunction = searchMovieByYear;
-      searchBtn.addEventListener("click", searchMovieByYear);
-    }
-  });
+function performSearch() {
+  searchPerformed = true;
+  if (searchEl.value === "") {
+    modalInstance.open();
+    searchPerformed = false;
+    return;
+  }
+  searchFunction(searchEl.value);
+  searchPerformed = false;
 }
 
-$( function() {
-  $( "#sortable" ).sortable();
-} );
+  for (var i = 0; i < searchParameterBtns.length; i++) {
+    var currentBtn = searchParameterBtns[i];
+    currentBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      textareaContainer.style.display = "block";
+      currentBtn.style.backgroundColor = "";
+        if (event.target === document.getElementById("title-search-btn-small")) {
+          textAreaLabel.textContent = "Searching by Movie Title!";
+          searchFunction = searchMovieByTitle;
+          searchBtn.removeEventListener("click", performSearch);
+          searchBtn.addEventListener("click", performSearch);
+        } else if (
+          event.target === document.getElementById("actor-search-btn-small")
+        ) {
+          textAreaLabel.textContent = "Searching by Featured Actor!";
+          searchFunction = searchMovieByActor;
+          searchBtn.removeEventListener("click", performSearch);
+          searchBtn.addEventListener("click", performSearch);
+        } else if (
+          event.target === document.getElementById("genre-search-btn-small")
+        ) {
+          textAreaLabel.textContent = "Searching by Genre!";
+          searchFunction = searchMovieByGenre;
+          searchBtn.removeEventListener("click", performSearch);
+          searchBtn.addEventListener("click", performSearch);
+        } else if (
+          event.target === document.getElementById("year-search-btn-small")
+        ) {
+          textAreaLabel.textContent = "Searching by Release Year!";
+          searchFunction = searchMovieByYear;
+          searchBtn.removeEventListener("click", performSearch);
+          searchBtn.addEventListener("click", performSearch);
+        }
+    });
+  }
 
 init();

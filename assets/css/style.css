@@ -116,7 +116,7 @@ footer {
   width: 20%;
   height: auto;
   left: 68%;
-  bottom: 40%;
+  bottom: 37%;
 }
 
 #Search {
@@ -244,6 +244,7 @@ footer {
   font-family: Montserrat;
   font-size: .7rem;
   cursor: pointer;
+  margin-left: 3px;
 }
 
 .search-parameter-btn {
@@ -284,6 +285,23 @@ footer {
   font-size: 1rem;
   justify-content: start;
   background-color: #26a69a;
+}
+
+.modal-content {
+  background-color:#26a69a;
+
+}
+.modal-close {
+  color:#fafafb;
+}
+
+#modal-base {
+  background-color: #313b72;
+}
+
+#modal1 {
+  border-radius: 10px;
+  width: 400px;
 }
 
 #title-info{
