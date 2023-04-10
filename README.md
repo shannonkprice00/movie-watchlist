@@ -18,10 +18,20 @@ We learned about API's, making an application that is clean, functional, yet sim
 
 ![Screenshot of Movie Geeks Application](./assets/Images/MovieGeekScreen.PNG)
 
-## The URL of the deployed application:
+## The URL of the Deployed Application:
 
 https://shannonkprice00.github.io/movie-watchlist/
 
-## The URL of the GitHub repository:
+## The URL of the GitHub Repository:
 
 https://github.com/shannonkprice00/movie-watchlist
+
+## Credits
+Tutorials Followed:<br>
+[Sortable Method](https://stackoverflow.com/questions/60592825/sortablejs-isnt-saving-my-sorted-todo-list-in-localstorage)<br>
+[Removing Event Listeners](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)<br>
+Collaborators:<br>
+Jerrick Johnson<br>
+Billy Scoggins<br>
+Josue Lopez<br>
+Shannon Price<br>
